@@ -40,7 +40,7 @@ export const products = [
     originalPrice: 1799,
     discount: 28,
     rating: 4.3,
-    image: "https://via.placeholder.com/300x300/2d7a2d/ffffff?text=Backpack",
+    image: "/slider.jpeg",
     description: "Durable laptop backpack with multiple compartments and USB charging port. Protect your laptop with this water-resistant backpack featuring padded compartments, ergonomic design, and built-in USB charging for your devices.",
     stock: 25,
     category: "Accessories",

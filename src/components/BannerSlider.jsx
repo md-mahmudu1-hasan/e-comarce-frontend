@@ -65,9 +65,9 @@ const HeroSlider = () => {
                       {/* Badge */}
                       <div className="mb-4">
                         <span className={`inline-block px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${
-                          slide.badgeColor === 'red' ? 'bg-red-600 text-white' :
-                          slide.badgeColor === 'green' ? 'bg-green-600 text-white' :
-                          'bg-orange-500 text-white'
+                          slide.badgeColor === 'red' ? 'bg-green-600 text-white' :
+                          slide.badgeColor === 'green' ? 'bg-green-700 text-white' :
+                          'bg-green-500 text-white'
                         }`}>
                           {slide.badge}
                         </span>
@@ -89,7 +89,7 @@ const HeroSlider = () => {
                       </p>
                       
                       {/* CTA Button */}
-                      <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                      <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
                         Shop Now
                       </button>
                     </div>
@@ -110,7 +110,7 @@ const HeroSlider = () => {
             />
             
             {/* Side Banner Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-600/80 to-pink-600/80 rounded-xl flex flex-col justify-center items-center text-white p-6">
+            <div className="absolute inset-0 bg-gradient-to-b from-green-600/80 to-green-700/80 rounded-xl flex flex-col justify-center items-center text-white p-6">
               <div className="text-center">
                 <span className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
                   Exclusive
@@ -121,7 +121,7 @@ const HeroSlider = () => {
                 <p className="text-sm md:text-base mb-4 text-white/90">
                   Luxury Items
                 </p>
-                <button className="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                <button className="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
                   Explore
                 </button>
               </div>
