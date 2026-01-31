@@ -3,10 +3,11 @@ import Mainmother from "../Layouts/Mainmother";
 import Home from "../Pages/Home/Home";
 import ProductDetails from "../components/ProductDetails";
 import { getProductById } from "../data/products";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
 import Profile from "../Pages/Profile/Profile";
 import Cart from "../Pages/Cart/Cart";
+import Login from "../Authentication/Login";
+import Signup from "../Authentication/Signup";
+import CompleteProfile from "../Authentication/CompleteProfile";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup></Signup>,
+      },
+      {
+        path: "complete-profile",
+        element: <CompleteProfile></CompleteProfile>,
       },
       {
         path: "profile",

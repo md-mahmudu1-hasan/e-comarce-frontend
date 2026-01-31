@@ -23,8 +23,6 @@ const BestProducts = () => {
     
     return stars;
   };
-
-  console.log(products);
   
   return (
     <section className="py-16 bg-white">
@@ -35,7 +33,7 @@ const BestProducts = () => {
             <Link key={product.id} to={`/product/${product.id}`} className="block h-full group">
               <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 cursor-pointer h-full flex flex-col relative">
                 {/* Discount Badge */}
-                <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
                   {product.discount}% OFF
                 </div>
                 
@@ -53,7 +51,7 @@ const BestProducts = () => {
                 <div className="flex-1 flex flex-col justify-between p-5">
                   <div>
                     {/* Product Title */}
-                    <h3 className="text-lg text-gray-900 font-semibold mb-3 line-clamp-2 leading-6 h-12 group-hover:text-green-700 transition-colors duration-300">
+                    <h3 className="text-lg text-gray-900 font-semibold mb-3 line-clamp-2 leading-6 h-12 group-hover:text-orange-600 transition-colors duration-300">
                       {product.title}
                     </h3>
                     
@@ -69,7 +67,7 @@ const BestProducts = () => {
                   {/* Price Section */}
                   <div className="space-y-3 pt-3 border-t border-gray-100">
                     <div className="flex items-baseline gap-3">
-                      <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                      <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent">
                         ₹{product.price}
                       </span>
                       <span className="text-base lg:text-lg text-gray-400 line-through">

@@ -23,7 +23,7 @@ const HeroSlider = () => {
       subtitle: "Up to 70% Off",
       description: "Electronics & Gadgets",
       badge: "LIMITED TIME",
-      badgeColor: "red"
+      badgeColor: "orange"
     },
     { 
       src: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", 

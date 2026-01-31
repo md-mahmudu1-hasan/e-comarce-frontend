@@ -10,8 +10,8 @@ const MyProfile = () => {
   });
 
   const [addressData, setAddressData] = useState({
-    address: '123 Main Street, New York, NY 10001',
-    phone: '+1 234 567 8900'
+    address: '',
+    phone: ''
   });
 
   const handlePersonalSubmit = (e) => {
@@ -45,7 +45,7 @@ const MyProfile = () => {
               {!isEditingPersonal ? (
                 <button
                   onClick={() => setIsEditingPersonal(true)}
-                  className="flex items-center space-x-2 px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -62,7 +62,7 @@ const MyProfile = () => {
                   </button>
                   <button
                     onClick={handlePersonalSubmit}
-                    className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -172,14 +172,22 @@ const MyProfile = () => {
               </form>
             ) : (
               <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Delivery Address</p>
-                  <p className="font-medium text-gray-900">{addressData.address}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Phone Number</p>
-                  <p className="font-medium text-gray-900">{addressData.phone}</p>
-                </div>
+                {addressData.address || addressData.phone ? (
+                  <>
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Delivery Address</p>
+                      <p className="font-medium text-gray-900">{addressData.address || 'No address provided'}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Phone Number</p>
+                      <p className="font-medium text-gray-900">{addressData.phone || 'No phone provided'}</p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 text-lg">Please add your delivery address</p>
+                  </div>
+                )}
               </div>
             )}
           </div>

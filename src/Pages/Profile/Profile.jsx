@@ -31,7 +31,7 @@ const Profile = () => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition-colors"
+        className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg shadow-lg hover:from-green-700 hover:to-orange-700 transition-all"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -47,7 +47,7 @@ const Profile = () => {
           {/* Drawer Header */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-100 to-orange-100 rounded-full flex items-center justify-center">
                 <span className="text-2xl">👤</span>
               </div>
               <div>
