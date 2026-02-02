@@ -15,8 +15,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
 import useAuth from "../Hook/UseAuth";
 import toast from "react-hot-toast";
-import { db } from "./Utilities/firebase.init";
-import { doc, setDoc } from "firebase/firestore";
+import useAxios from "../Hook/useAxios";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +27,9 @@ const Signup = () => {
     watch,
   } = useForm();
 
-  const { createUser, googleSignIn } = useAuth();
+  const axiosInstance = useAxios();
+
+  const { googleSignIn } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -38,11 +39,14 @@ const Signup = () => {
     const { name, email, phone, address, password } = data;
 
     try {
-      createUser(email, password);
-      navigate("/");
-      toast.success("Account created successfully");
+      await axiosInstance.post("/signup", { email, password });
+      navigate("/verify-email", {
+        state: { name, email, phone, address, password },
+      });
+
+      toast.success("Verify Your Email");
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      toast.error("Somthing went wrong!Please try again.");
     }
   };
 
@@ -77,7 +81,7 @@ const Signup = () => {
             Create Account
           </h2>
           <p className="text-gray-600">
-            Join ShopHub for exclusive deals and offers
+            Join SM বাজার for exclusive deals and offers
           </p>
         </div>
 
@@ -270,9 +274,9 @@ const Signup = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" />
                   ) : (
-                    <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" />
                   )}
                 </button>
               </div>
@@ -318,9 +322,9 @@ const Signup = () => {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? (
-                    <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" />
                   ) : (
-                    <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                    <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" />
                   )}
                 </button>
               </div>
@@ -420,7 +424,9 @@ const Signup = () => {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          <p>&copy; 2026 ShopHub. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} SM সহজ Buy. All rights reserved.
+          </p>
         </div>
       </div>
     </div>

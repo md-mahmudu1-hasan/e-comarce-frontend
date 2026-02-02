@@ -12,8 +12,10 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
+  const email = watch("email");
 
   const { signIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
@@ -62,7 +64,7 @@ const Login = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome Back
           </h2>
-          <p className="text-gray-600">Sign in to your ShopHub account</p>
+          <p className="text-gray-600">Sign in to your SM বাজার account</p>
         </div>
 
         {/* Login Form */}
@@ -169,12 +171,18 @@ const Login = () => {
                   htmlFor="remember-me"
                   className="ml-2 block text-sm text-gray-700"
                 >
-                  Remember me
+                  <Link
+                    to="/terms"
+                    className="text-green-600 hover:text-green-700 font-medium"
+                  >
+                    Terms and Conditions
+                  </Link>
                 </label>
               </div>
 
               <div className="text-sm">
                 <Link
+                  state={{ email }}
                   to="/forgot-password"
                   className="font-medium text-green-600 hover:text-green-700 transition-colors"
                 >
@@ -189,12 +197,14 @@ const Login = () => {
             )}
             {error && (
               <p className="mt-1 text-sm text-red-600">
-                {error == "auth/invalid-credential" ? "Invalid email or password" : error}
+                {error == "auth/invalid-credential"
+                  ? "Invalid email or password"
+                  : error}
               </p>
             )}
 
-            {/* Login Button */}
-            <div>
+            {/* Sign In Button */}
+            <div className="mt-6">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -245,7 +255,9 @@ const Login = () => {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          <p>&copy; 2026 ShopHub. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} SM সহজ Buy. All rights reserved.
+          </p>
         </div>
       </div>
     </div>

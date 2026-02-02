@@ -2,15 +2,29 @@ import React, { useState } from 'react';
 import MyProfile from './MyProfile';
 import MyOrders from './MyOrders';
 import MyReviews from './MyReviews';
+import useAuth from '../../Hook/UseAuth';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
+import { CgProfile } from 'react-icons/cg';
+import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
+import { GiTalk } from 'react-icons/gi';
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState('profile');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { SignOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    SignOut();
+    navigate("/")
+    toast.success("Logout Successfully")
+  }
 
   const menuItems = [
-    { id: 'profile', label: 'My Profile', icon: '👤' },
-    { id: 'orders', label: 'My Orders', icon: '📦' },
-    { id: 'reviews', label: 'My Reviews', icon: '⭐' }
+    { id: 'profile', label: 'My Profile', icon: <CgProfile /> },
+    { id: 'orders', label: 'My Orders', icon: <MdOutlineProductionQuantityLimits /> },
+    { id: 'reviews', label: 'My Reviews', icon:<GiTalk />}
   ];
 
   const renderContent = () => {
@@ -85,7 +99,7 @@ const Profile = () => {
 
           {/* Drawer Footer */}
           <div className="p-4 border-t border-gray-200">
-            <button className="w-full flex items-center justify-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+            <button onClick={handleLogout} className="w-full flex items-center justify-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>

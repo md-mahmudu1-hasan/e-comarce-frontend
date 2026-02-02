@@ -8,6 +8,10 @@ import Cart from "../Pages/Cart/Cart";
 import Login from "../Authentication/Login";
 import Signup from "../Authentication/Signup";
 import CompleteProfile from "../Authentication/CompleteProfile";
+import ForgetPassword from "../Authentication/ForgetPassword";
+import TermsAndConditions from "../Pages/Legal/TermsAndConditions";
+import AboutUs from "../Pages/About/AboutUs";
+import EmailVerification from "../Authentication/EmailVerification";
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +35,24 @@ export const router = createBrowserRouter([
         element: <CompleteProfile></CompleteProfile>,
       },
       {
+        path: "/forgot-password",
+        element: <ForgetPassword></ForgetPassword>,
+      },
+      {
+        path: "verify-email",
+        element: <EmailVerification></EmailVerification>,
+      },
+      {
         path: "profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "about",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "terms",
+        element: <TermsAndConditions></TermsAndConditions>,
       },
       {
         path: "cart",

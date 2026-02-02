@@ -18,7 +18,7 @@ const HeroSlider = () => {
 
   const slides = [
     { 
-      src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", 
+      src: "/slider.jpeg", 
       title: "Mega Sale Event",
       subtitle: "Up to 70% Off",
       description: "Electronics & Gadgets",

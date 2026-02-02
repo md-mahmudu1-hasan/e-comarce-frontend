@@ -7,11 +7,7 @@ import useAuth from "../Hook/UseAuth";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const {user} = useAuth();
-
-  
+  const { user } = useAuth();
 
   return (
     <nav className="sticky top-0 bg-gradient-to-r from-green-600 to-orange-500 shadow-lg z-50">
@@ -49,14 +45,14 @@ const Navbar = () => {
             </Link>
             <Link
               to="/login"
-              className="flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors"
+              className={`flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors ${user && "hidden"}`}
             >
               <RiLoginBoxLine size={28} />
               <span className="text-xs mt-1">Login</span>
             </Link>
             <Link
               to="/profile"
-              className="flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors"
+              className={`flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors ${!user && "hidden"}`}
             >
               <FiUser size={24} />
               <span className="text-xs mt-1">Profile</span>
@@ -71,12 +67,18 @@ const Navbar = () => {
             >
               <IoCartOutline size={28} />
             </Link>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-white hover:text-orange-200 transition-colors"
-            >
-              {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </button>
+                <Link
+                  to="/login"
+                  className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${user && "hidden"}`}
+                >
+                  <RiLoginBoxLine size={24} />
+                </Link>
+                <Link
+                  to="/profile"
+                  className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${!user && "hidden"}`}
+                >
+                  <FiUser size={24} />
+                </Link>
           </div>
         </div>
 
@@ -95,28 +97,6 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu - Slide down menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-white/20">
-            <div className="flex flex-col space-y-4">
-              <Link
-                to="/login"
-                className="flex items-center space-x-3 p-2 text-white hover:text-orange-200 transition-colors"
-              >
-                <RiLoginBoxLine size={24} />
-                <span className="text-white">Login</span>
-              </Link>
-              <Link
-                to="/profile"
-                className="flex items-center space-x-3 p-2 text-white hover:text-orange-200 transition-colors"
-              >
-                <FiUser size={24} />
-                <span className="text-white">Profile</span>
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

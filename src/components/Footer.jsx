@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-green-600 to-orange-500 text-white py-12">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">ShopHub</h3>
+          <img src="/logo.png" alt="ShopHub Logo" className="w-35 px-4" />
             <p className="text-white/80 leading-relaxed">
               Your trusted online shopping destination for quality products at great prices.
             </p>
@@ -34,23 +35,9 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Products</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Categories</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Deals</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Blog</a></li>
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Customer Service</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Returns</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition-colors">Track Order</a></li>
+              <li><Link to="/about" className="text-white/80 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/all-clothes" className="text-white/80 hover:text-white transition-colors">All clothes</Link></li>
+              <li><Link to="/terms" className="text-white/80 hover:text-white transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
 
@@ -64,11 +51,11 @@ const Footer = () => {
               </p>
               <p>
                 <strong className="text-white">Phone:</strong><br />
-                +1 (555) 123-4567
+                +8801834189086
               </p>
               <p>
                 <strong className="text-white">Email:</strong><br />
-                support@shophub.com
+                smsahazbuy@gmail.com
               </p>
             </div>
           </div>
@@ -76,7 +63,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="border-t border-white/20 pt-8 text-center">
-          <p className="text-white/80">&copy; 2024 ShopHub. All rights reserved.</p>
+          <p className="text-white/80"> &copy; {new Date().getFullYear()} SM সহজ Buy. All rights reserved.</p>
         </div>
       </div>
     </footer>
