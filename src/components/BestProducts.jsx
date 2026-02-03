@@ -38,7 +38,7 @@ const BestProducts = () => {
                 </div>
                 
                 {/* Product Image */}
-                <div className="w-full h-56 overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
+                <div className="w-full h-40 overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
                   <img 
                     src={product.image} 
                     alt={product.title} 
@@ -48,35 +48,35 @@ const BestProducts = () => {
                 </div>
                 
                 {/* Product Info */}
-                <div className="flex-1 flex flex-col justify-between p-5">
+                <div className="flex-1 flex flex-col justify-between p-4">
                   <div>
                     {/* Product Title */}
-                    <h3 className="text-lg text-gray-900 font-semibold mb-3 line-clamp-2 leading-6 h-12 group-hover:text-orange-600 transition-colors duration-300">
+                    <h3 className="text-sm text-gray-900 font-semibold mb-2 line-clamp-2 leading-5 h-8 group-hover:text-orange-600 transition-colors duration-300">
                       {product.title}
                     </h3>
                     
                     {/* Rating */}
-                    <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center gap-2 mb-3">
                       <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-md">
                         {renderStars(product.rating)}
                       </div>
-                      <span className="text-gray-600 text-sm font-medium">({product.rating})</span>
+                      <span className="text-gray-600 text-xs font-medium">({product.rating})</span>
                     </div>
                   </div>
                   
                   {/* Price Section */}
-                  <div className="space-y-3 pt-3 border-t border-gray-100">
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent">
+                  <div className="space-y-2 pt-2 border-t border-gray-100">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg lg:text-xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent">
                         ₹{product.price}
                       </span>
-                      <span className="text-base lg:text-lg text-gray-400 line-through">
+                      <span className="text-sm lg:text-base text-gray-400 line-through">
                         ₹{product.originalPrice}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm text-green-600 font-medium">In Stock</span>
+                      <span className="text-xs text-green-600 font-medium">In Stock</span>
                     </div>
                   </div>
                 </div>
@@ -85,9 +85,9 @@ const BestProducts = () => {
           ))}
         </div>
         <div className="text-center">
-          <button className="bg-transparent text-green-700 px-8 py-3 border-2 border-green-700 rounded-lg font-semibold text-lg hover:bg-green-700 hover:text-white transition-all duration-300 hover:-translate-y-1">
+          <Link to="/all-clothes" className="bg-transparent text-green-700 px-8 py-3 border-2 border-green-700 rounded-lg font-semibold text-lg hover:bg-green-700 hover:text-white transition-all duration-300 hover:-translate-y-1">
             All Products
-          </button>
+          </Link>
         </div>
       </div>
     </section>

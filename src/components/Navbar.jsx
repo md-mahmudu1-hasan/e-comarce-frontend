@@ -10,7 +10,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <nav className="sticky top-0 bg-gradient-to-r from-green-600 to-orange-500 shadow-lg z-50">
+    <nav className="sticky top-0 bg-gradient-to-r from-green-600 to-orange-500/70 shadow-lg z-50 rounded-xl">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
