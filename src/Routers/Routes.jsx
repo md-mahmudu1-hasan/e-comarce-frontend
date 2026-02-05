@@ -4,7 +4,6 @@ import Home from "../Pages/Home/Home";
 import ProductDetails from "../components/ProductDetails";
 import { getProductById } from "../data/products";
 import { getClothingProductById } from "../data/clothingProducts";
-import Profile from "../Pages/Profile/Profile";
 import Cart from "../Pages/Cart/Cart";
 import Login from "../Authentication/Login";
 import Signup from "../Authentication/Signup";
@@ -14,6 +13,11 @@ import TermsAndConditions from "../Pages/Legal/TermsAndConditions";
 import AboutUs from "../Pages/About/AboutUs";
 import EmailVerification from "../Authentication/EmailVerification";
 import AllClothes from "../Pages/AllClothes/AllClothes";
+import Profilelayout from "../Layouts/Profilelayout";
+import MyProfile from "../Pages/Profile/MyProfile";
+import MyOrders from "../Pages/Profile/MyOrders";
+import MyReviews from "../Pages/Profile/MyReviews";
+import NotFound from "../Pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -45,10 +49,6 @@ export const router = createBrowserRouter([
         element: <EmailVerification></EmailVerification>,
       },
       {
-        path: "profile",
-        element: <Profile></Profile>,
-      },
-      {
         path: "about",
         element: <AboutUs></AboutUs>,
       },
@@ -68,13 +68,39 @@ export const router = createBrowserRouter([
         path: "product/:id",
         element: <ProductDetails />,
         loader: ({ params }) => {
-          const product = getProductById(params.id) || getClothingProductById(params.id);
+          const product =
+            getProductById(params.id) || getClothingProductById(params.id);
           if (!product) {
             throw new Response("Product Not Found", { status: 404 });
           }
           return product;
         },
+        errorElement: <NotFound />,
       },
     ],
+    errorElement: <NotFound />,
+  },
+  {
+    path: "profile",
+    element: <Profilelayout></Profilelayout>,
+    children: [
+      {
+        index: true,
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "profile/my-orders",
+        element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "profile/my-reviews",
+        element: <MyReviews></MyReviews>,
+      },
+    ],
+    errorElement: <NotFound />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

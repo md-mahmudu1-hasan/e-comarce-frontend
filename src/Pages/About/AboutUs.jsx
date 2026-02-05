@@ -10,11 +10,17 @@ import {
   FiHeart,
   FiTarget,
   FiTrendingUp,
+  FiMapPin,
+  FiPhone,
+  FiMail,
+  FiClock,
+  FiCheckCircle,
+  FiStar,
 } from "react-icons/fi";
 
 const AboutUs = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-green-50">
       {/* Hero Section */}
       <div className="p-6">
         <div className="max-w-6xl mx-auto px-4">
@@ -31,8 +37,8 @@ const AboutUs = () => {
           </h1>
 
           <p className="text-lg md:text-xl max-w-3xl">
-            আপনার ফ্যাশন ও আস্থার নির্ভরযোগ্য ঠিকানা। অনলাইন ও অফলাইনে
-            মানসম্মত পোশাক এবং আধুনিক লাইফস্টাইল পণ্যের নিশ্চয়তা।
+            আপনার ফ্যাশন ও আস্থার নির্ভরযোগ্য ঠিকানা। অনলাইন ও অফলাইনে মানসম্মত
+            পোশাক এবং আধুনিক লাইফস্টাইল পণ্যের নিশ্চয়তা।
           </p>
         </div>
       </div>
@@ -44,10 +50,10 @@ const AboutUs = () => {
             অনলাইন ও অফলাইনের অনন্য সমন্বয়
           </h2>
           <p className="text-gray-700 leading-relaxed text-lg">
-            আধুনিক কেনাকাটায় বিশ্বাসযোগ্যতা ও স্বাচ্ছন্দ্য নিশ্চিত করতে
-            SM সহজ Buy আপনাকে দিচ্ছে অনলাইন সুবিধা ও অফলাইন শোরুমের বাস্তব
-            অভিজ্ঞতা। ঘরে বসে অর্ডার করুন অথবা সরাসরি শোরুমে এসে ট্রায়াল দিয়ে
-            নিশ্চিন্তে কেনাকাটা করুন।
+            আধুনিক কেনাকাটায় বিশ্বাসযোগ্যতা ও স্বাচ্ছন্দ্য নিশ্চিত করতে SM সহজ
+            Buy আপনাকে দিচ্ছে অনলাইন সুবিধা ও অফলাইন শোরুমের বাস্তব অভিজ্ঞতা।
+            ঘরে বসে অর্ডার করুন অথবা সরাসরি শোরুমে এসে ট্রায়াল দিয়ে নিশ্চিন্তে
+            কেনাকাটা করুন।
           </p>
         </section>
 
@@ -59,9 +65,9 @@ const AboutUs = () => {
               <h3 className="text-2xl font-bold">আমাদের মিশন</h3>
             </div>
             <p className="text-gray-700 leading-relaxed">
-              নীলফামারী শহরের ভেতরে প্রথম ৪ মাস ফ্রি হোম ডেলিভারি এবং
-              ন্যূনতম ১২৫০ টাকার অর্ডারে নিশ্চিত উপহার দিয়ে গ্রাহকের
-              সন্তুষ্টি নিশ্চিত করা।
+              নীলফামারী শহরের ভেতরে প্রথম ৪ মাস ফ্রি হোম ডেলিভারি এবং ন্যূনতম
+              ১২৫০ টাকার অর্ডারে নিশ্চিত উপহার দিয়ে গ্রাহকের সন্তুষ্টি নিশ্চিত
+              করা।
             </p>
           </div>
 
@@ -161,9 +167,7 @@ const AboutUs = () => {
 
         {/* Stats */}
         <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-10">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            আমাদের অর্জন
-          </h2>
+          <h2 className="text-3xl font-bold text-center mb-10">আমাদের অর্জন</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -181,6 +185,40 @@ const AboutUs = () => {
             <div>
               <p className="text-3xl font-bold text-purple-600">4.8★</p>
               <p className="text-gray-600">রেটিং</p>
+            </div>
+          </div>
+        </section>
+        <section class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+          <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">আমাদের আউটলেট</h2>
+            <div class="prose prose-lg text-gray-700 max-w-none">
+              <p class="mb-4">
+                "অনলাইনের স্বাচ্ছন্দ্য আর সরাসরি দেখে কেনার নিশ্চয়তা—সবই
+                পাচ্ছেন আমাদের আউটলেটে।"
+              </p>
+              <p class="mb-4 font-bold">শোরুমের বিস্তারিত তথ্য:</p>
+              <p class="mb-4">
+                <span class="font-bold">শোরুমের ঠিকানা:</span> SM সহজ Buy Rafi
+                Taders পাঁচমাথা মোড়, নীলফামারী সদর
+              </p>
+              <p class="mb-4">
+                <span class="font-bold">সরাসরি কেনাকাটার সুবিধা:</span> আমাদের
+                শোরুমে এসে আপনি প্রতিটি পোশাকের কাপড় সরাসরি স্পর্শ করে মান যাচাই
+                করতে পারবেন এবং ট্রায়াল দিয়ে নিজের সাইজ নিশ্চিত করে কিনতে
+                পারবেন।
+              </p>
+              <p class="mb-4">
+                <span class="font-bold">সময়সূচী:</span> প্রতিদিন সকাল ১০:০০ টা
+                থেকে রাত ১২:০০ টা পর্যন্ত আমাদের শোরুম খোলা থাকে।
+              </p>
+
+              <p class="mb-4">
+                <span class="font-bold">যোগাযোগ:</span> 01731965985
+              </p>
+              <p class="mb-4 font-bold">
+                গুগল ম্যাপ লোকেশন (Google Map Location):
+              </p>
+              <p>SM সহজ Buy Rafi Taders পাঁচমাথা মোড়, নীলফামারী সদর</p>
             </div>
           </div>
         </section>

@@ -4,8 +4,7 @@ import { FiPhone, FiMapPin, FiEye, FiEyeOff } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import useAuth from "../Hook/UseAuth";
 import toast from "react-hot-toast";
-import { db } from "./Utilities/firebase.init";
-import { doc, setDoc } from "firebase/firestore";
+import useAxios from "../Hook/useAxios";
 
 const CompleteProfile = () => {
   const {
@@ -18,21 +17,18 @@ const CompleteProfile = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
+  const axiosInstance = useAxios();
+
   const onSubmit = async (data) => {
     const { phone, address } = data;
 
     try {
-      // Save user profile data to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        name: user.displayName || user.email.split("@")[0],
+      // Save user profile data to database
+      await axiosInstance.patch("/userinfo", {
+        email: user?.email,
         phone: phone,
         address: address,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
       });
-
       toast.success("Profile completed successfully!");
       navigate("/");
     } catch (err) {
@@ -134,11 +130,7 @@ const CompleteProfile = () => {
               )}
             </div>
 
-            {error && (
-              <p className="mt-1 text-sm text-red-600">
-                {error}
-              </p>
-            )}
+            {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
 
             {/* Submit Button */}
             <div>

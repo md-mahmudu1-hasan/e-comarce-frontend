@@ -1,8 +1,11 @@
 import React from 'react';
 import { useLoaderData, Link } from 'react-router';
+import { useCart } from '../Context/CartContext';
+import { Toaster } from 'react-hot-toast';
 
 const ProductDetails = () => {
   const product = useLoaderData();
+  const { addToCart } = useCart();
 
   if (!product) {
     return (
@@ -40,7 +43,8 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = () => {
-    alert(`${product.title} has been added to your cart!`);
+    const quantity = parseInt(document.getElementById('quantity').value);
+    addToCart(product, quantity);
   };
   
   return (

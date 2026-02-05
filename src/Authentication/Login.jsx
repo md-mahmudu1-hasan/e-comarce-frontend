@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../Hook/UseAuth";
 import toast from "react-hot-toast";
 import { getAdditionalUserInfo } from "firebase/auth";
+import useAxios from "../Hook/useAxios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,8 @@ const Login = () => {
   const { signIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+
+  const axiosInstance = useAxios();
 
   const onSubmit = async (data) => {
     const email = data?.email;
@@ -41,6 +44,12 @@ const Login = () => {
       const { isNewUser } = getAdditionalUserInfo(result);
 
       if (isNewUser) {
+        await axiosInstance.post("/userinfo", {
+          email: result?.user?.email,
+          name: result?.user?.displayName,
+          phone: "",
+          address: "",
+        });
         toast.success("Welcome! Please complete your profile.");
         navigate("/complete-profile");
       } else {

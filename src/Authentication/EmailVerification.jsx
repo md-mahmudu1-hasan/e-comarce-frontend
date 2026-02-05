@@ -83,6 +83,12 @@ const EmailVerification = () => {
       if (response.status === 200) {
         setIsVerified(true);
         await createUser(location?.state?.email, location?.state?.password);
+        await axiosInstance.post("/userinfo", {
+          email: location?.state?.email,
+          name: location?.state?.name,
+          phone: location?.state?.phone,
+          address: location?.state?.address,
+        });
         toast.success("Email verified successfully!");
         navigate("/");
       }

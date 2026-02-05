@@ -4,10 +4,13 @@ import { FiUser, FiMenu, FiX } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { RiLoginBoxLine } from "react-icons/ri";
 import useAuth from "../Hook/UseAuth";
+import { useCart } from "../Context/CartContext";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuth();
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   return (
     <nav className="sticky top-0 bg-gradient-to-r from-green-600 to-orange-500/70 shadow-lg z-50 rounded-xl">
@@ -38,16 +41,21 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/cart"
-              className="flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors"
+              className="flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors relative"
             >
               <IoCartOutline size={28} />
               <span className="text-xs mt-1">Cart</span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
             </Link>
             <Link
               to="/login"
               className={`flex flex-col items-center p-2 text-white hover:text-orange-200 transition-colors ${user && "hidden"}`}
             >
-              <RiLoginBoxLine size={28} />
+              <RiLoginBoxLine size={24} />
               <span className="text-xs mt-1">Login</span>
             </Link>
             <Link
@@ -63,9 +71,14 @@ const Navbar = () => {
           <div className="md:hidden flex items-center space-x-2">
             <Link
               to="/cart"
-              className="p-2 text-white hover:text-orange-200 transition-colors flex items-center"
+              className="p-2 text-white hover:text-orange-200 transition-colors flex items-center relative"
             >
               <IoCartOutline size={28} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
             </Link>
                 <Link
                   to="/login"

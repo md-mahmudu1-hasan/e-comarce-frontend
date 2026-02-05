@@ -4,13 +4,16 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { router } from "./Routers/routes";
 import Providers from "./Authentication/Providers/Providers";
+import { CartProvider } from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Providers>
-      <RouterProvider router={router} />
-      <Toaster />
+      <CartProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </CartProvider>
     </Providers>
   </StrictMode>,
 );

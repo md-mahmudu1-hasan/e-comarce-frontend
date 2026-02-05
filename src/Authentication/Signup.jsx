@@ -57,6 +57,12 @@ const Signup = () => {
       const { isNewUser } = getAdditionalUserInfo(result);
 
       if (isNewUser) {
+        await axiosInstance.post("/userinfo", {
+          email: result?.user?.email,
+          name: result?.user?.displayName,
+          phone: "",
+          address: "",
+        });
         toast.success("Welcome! Please complete your profile.");
         navigate("/complete-profile");
       } else {

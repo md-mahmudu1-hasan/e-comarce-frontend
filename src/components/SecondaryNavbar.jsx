@@ -4,6 +4,7 @@ import './SecondaryNavbar.css';
 
 const SecondaryNavbar = () => {
   const links = [
+    { name: "Home", href: "/" },
     { name: "All Clothes", href: "/all-clothes" },
     { name: "Terms & Conditions", href: "/terms" },
     { name: "About Us", href: "/about" }
