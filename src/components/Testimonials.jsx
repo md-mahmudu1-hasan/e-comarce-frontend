@@ -1,30 +1,30 @@
 import React from 'react';
 
 const Testimonials = () => {
-  const testimonials = [
+const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
+      name: "MD. Kamrul Hasan Sujon",
       role: "Regular Customer",
-      comment: "Amazing shopping experience! The products are high quality and delivery is always on time.",
+      comment: "সেরা কোয়ালিটি এবং দারুণ সার্ভিস, ঠিক সময়ে ডেলিভারি দেওয়ার জন্য ধন্যবাদ।",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+      avatar: "https://i.ibb.co.com/YBbbgjGj/2.jpg"
     },
     {
       id: 2,
-      name: "Michael Chen",
+      name: "MD. Mahabbat Hossain",
       role: "Premium Member",
-      comment: "Best e-commerce platform I've used. Great customer service and amazing deals!",
+      comment: "সেরা কাস্টমার সার্ভিস আর দারুণ সব ডিল—সব মিলিয়ে এটিই আমার প্রিয় অনলাইন শপিং সাইট।",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+      avatar: "https://i.ibb.co.com/WNsQ5jT2/Image-oszbgoszbgoszbgo.png"
     },
     {
       id: 3,
-      name: "Emily Davis",
+      name: "MD. Ajmain Adib Shakkor",
       role: "First-time Buyer",
-      comment: "Impressed with the variety of products and user-friendly interface. Highly recommend!",
+      comment: "অসংখ্য পণ্যের কালেকশন এবং অ্যাপের সহজ ইন্টারফেস—সব মিলিয়ে এটি হাইলি রিকমেন্ডেড!",
       rating: 4,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+      avatar: "https://i.ibb.co.com/6cyWBHSQ/Image-l29f97l29f97l29f.png"
     }
   ];
 

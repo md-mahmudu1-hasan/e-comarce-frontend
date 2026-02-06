@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import Mainmother from "../Layouts/Mainmother";
 import Home from "../Pages/Home/Home";
-import ProductDetails from "../components/ProductDetails";
-import { getProductById } from "../data/products";
-import { getClothingProductById } from "../data/clothingProducts";
 import Cart from "../Pages/Cart/Cart";
 import Login from "../Authentication/Login";
 import Signup from "../Authentication/Signup";
@@ -18,6 +15,10 @@ import MyProfile from "../Pages/Profile/MyProfile";
 import MyOrders from "../Pages/Profile/MyOrders";
 import MyReviews from "../Pages/Profile/MyReviews";
 import NotFound from "../Pages/NotFound";
+import BestClothesDetails from "../components/BestClothesDetails";
+import KidsClothesDetails from "../Pages/AllClothes/KidsClothes";
+import WomenclothesDetails from "../Pages/AllClothes/Womenclothes";
+import MensClothesDetails from "../Pages/AllClothes/MensClothes";
 
 export const router = createBrowserRouter([
   {
@@ -65,17 +66,20 @@ export const router = createBrowserRouter([
         element: <AllClothes></AllClothes>,
       },
       {
-        path: "product/:id",
-        element: <ProductDetails />,
-        loader: ({ params }) => {
-          const product =
-            getProductById(params.id) || getClothingProductById(params.id);
-          if (!product) {
-            throw new Response("Product Not Found", { status: 404 });
-          }
-          return product;
-        },
-        errorElement: <NotFound />,
+        path: "bestclothes/:id",
+        element: <BestClothesDetails></BestClothesDetails>,
+      },
+      {
+        path: "kidsclothes/:id",
+        element: <KidsClothesDetails></KidsClothesDetails>,
+      },  
+      {
+        path: "womenclothes/:id",
+        element: <WomenclothesDetails></WomenclothesDetails>,
+      },
+      {
+        path: "mensclothes/:id",
+        element: <MensClothesDetails></MensClothesDetails>,
       },
     ],
     errorElement: <NotFound />,

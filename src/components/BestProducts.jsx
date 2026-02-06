@@ -1,7 +1,11 @@
 import { Link } from 'react-router';
-import { products } from '../data/products';
+import { useEffect, useState } from 'react';
+import useAxios from '../Hook/useAxios';
 
 const BestProducts = () => {
+ const [clothes, setClothes] = useState([]);
+
+  const axiosInstance = useAxios();
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -23,13 +27,19 @@ const BestProducts = () => {
     return stars;
   };
   
+  useEffect(() => {
+    axiosInstance.get('/bestclothes').then(response => {
+      setClothes(response.data.slice(0, 8));
+    });
+  }, []);
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Best Products</h2>
+        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Best Clothes</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 mb-12">
-          {products.map(product => (
-            <Link key={product.id} to={`/product/${product.id}`} className="block h-full group">
+          {clothes.map(product => (
+            <Link key={product._id} to={`/bestclothes/${product._id}`} className="block h-full group">
               <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 cursor-pointer h-full flex flex-col relative">
                 {/* Discount Badge */}
                 <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
@@ -39,7 +49,7 @@ const BestProducts = () => {
                 {/* Product Image */}
                 <div className="w-full h-40 overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
                   <img 
-                    src={product.image} 
+                    src={product.images[0]} 
                     alt={product.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -57,9 +67,9 @@ const BestProducts = () => {
                     {/* Rating */}
                     <div className="flex items-center gap-2 mb-3">
                       <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-md">
-                        {renderStars(product.rating)}
+                        {renderStars(product.ratings)}
                       </div>
-                      <span className="text-gray-600 text-xs font-medium">({product.rating})</span>
+                      <span className="text-gray-600 text-xs font-medium">({product.ratings})</span>
                     </div>
                   </div>
                   
@@ -67,10 +77,10 @@ const BestProducts = () => {
                   <div className="space-y-2 pt-2 border-t border-gray-100">
                     <div className="flex items-baseline gap-2">
                       <span className="text-lg lg:text-xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent">
-                        ₹{product.price}
+                        ₹{product.after_discount_price}
                       </span>
                       <span className="text-sm lg:text-base text-gray-400 line-through">
-                        ₹{product.originalPrice}
+                        ₹{product.main_price}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
