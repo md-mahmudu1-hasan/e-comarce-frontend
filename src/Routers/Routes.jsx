@@ -17,8 +17,8 @@ import MyReviews from "../Pages/Profile/MyReviews";
 import NotFound from "../Pages/NotFound";
 import BestClothesDetails from "../components/BestClothesDetails";
 import KidsClothesDetails from "../Pages/AllClothes/KidsClothes";
-import WomenclothesDetails from "../Pages/AllClothes/Womenclothes";
 import MensClothesDetails from "../Pages/AllClothes/MensClothes";
+import WomensClothesDetails from "../Pages/AllClothes/Womenclothes";
 
 export const router = createBrowserRouter([
   {
@@ -74,15 +74,15 @@ export const router = createBrowserRouter([
         element: <KidsClothesDetails></KidsClothesDetails>,
       },  
       {
-        path: "womenclothes/:id",
-        element: <WomenclothesDetails></WomenclothesDetails>,
+        path: "womensclothes/:id",
+        element: <WomensClothesDetails></WomensClothesDetails>
       },
       {
         path: "mensclothes/:id",
         element: <MensClothesDetails></MensClothesDetails>,
       },
     ],
-    errorElement: <NotFound />,
+    // errorElement: <NotFound />,
   },
   {
     path: "profile",
@@ -103,8 +103,8 @@ export const router = createBrowserRouter([
     ],
     errorElement: <NotFound />,
   },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  // {
+  //   path: "*",
+  //   element: <NotFound />,
+  // },
 ]);

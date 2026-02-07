@@ -4,7 +4,7 @@ import { FiUser, FiMenu, FiX } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { RiLoginBoxLine } from "react-icons/ri";
 import useAuth from "../Hook/UseAuth";
-import { useCart } from "../Context/CartContext";
+import useCart from "../Hook/useCart";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,7 +47,7 @@ const Navbar = () => {
               <span className="text-xs mt-1">Cart</span>
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
-                  {cartCount > 99 ? '99+' : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
@@ -76,22 +76,22 @@ const Navbar = () => {
               <IoCartOutline size={28} />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
-                  {cartCount > 99 ? '99+' : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
-                <Link
-                  to="/login"
-                  className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${user && "hidden"}`}
-                >
-                  <RiLoginBoxLine size={24} />
-                </Link>
-                <Link
-                  to="/profile"
-                  className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${!user && "hidden"}`}
-                >
-                  <FiUser size={24} />
-                </Link>
+            <Link
+              to="/login"
+              className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${user && "hidden"}`}
+            >
+              <RiLoginBoxLine size={24} />
+            </Link>
+            <Link
+              to="/profile"
+              className={`p-2 text-white hover:text-orange-200 transition-colors flex items-center ${!user && "hidden"}`}
+            >
+              <FiUser size={24} />
+            </Link>
           </div>
         </div>
 

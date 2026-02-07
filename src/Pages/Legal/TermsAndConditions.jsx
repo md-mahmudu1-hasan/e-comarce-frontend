@@ -206,14 +206,6 @@ const TermsAndConditions = () => {
                 আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আপনার ব্যক্তিগত
                 তথ্যের ব্যবহার আমাদের গোপনীয়তা নীতি (Privacy Policy) দ্বারা
                 নিয়ন্ত্রিত।
-                <Link
-                  to="/privacy"
-                  className="text-green-600 hover:text-green-700 font-medium"
-                >
-                  {" "}
-                  Privacy Policy
-                </Link>
-                .
               </p>
               <p>
                 SM সহজ Buy ব্যবহার করার মাধ্যমে, আপনি আমাদের গোপনীয়তা নীতিতে

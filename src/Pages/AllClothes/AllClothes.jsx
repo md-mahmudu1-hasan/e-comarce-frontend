@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import useAxios from "../../Hook/useAxios";
+import ProductCardSkeleton from "../../components/ProductCardSkeleton";
 
-const ProductCard = ({ product , name }) => {
+/* ================= Product Card ================= */
+const ProductCard = ({ product, name }) => {
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -37,7 +39,7 @@ const ProductCard = ({ product , name }) => {
         {/* Product Image */}
         <div className="w-full h-40 overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
           <img 
-            src={product.images[2]} 
+            src={product.images[0]} 
             alt={product.title} 
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
@@ -82,16 +84,21 @@ const ProductCard = ({ product , name }) => {
   );
 };
 
-const ClothesSection = ({ title, products, name }) => {
+const ClothesSection = ({ title, products, name, isLoading }) => {
   return (
     <section className="mb-14">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">{title}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} name={name} />
-          ))}
+          {isLoading 
+            ? Array(10).fill(0).map((_, index) => (
+                <ProductCardSkeleton key={`skeleton-${index}`} />
+              ))
+            : products.map((product) => (
+                <ProductCard key={product.id} product={product} name={name} />
+              ))
+          }
         </div>
       </div>
     </section>
@@ -102,14 +109,50 @@ const AllClothes = () => {
   const [kids, setKids] = useState([]);
   const [men, setMen] = useState([]);
   const [women, setWomen] = useState([]);
+  const [kidsLoading, setKidsLoading] = useState(true);
+  const [menLoading, setMenLoading] = useState(true);
+  const [womenLoading, setWomenLoading] = useState(true);
 
   const axiosInstance = useAxios();
 
   useEffect(() => {
-    axiosInstance.get("/kidsclothes").then(res => setKids(res.data));
-    axiosInstance.get("/mensclothes").then(res => setMen(res.data));
-    axiosInstance.get("/womensclothes").then(res => setWomen(res.data));
-  }, []);
+    const fetchKids = async () => {
+      try {
+        const res = await axiosInstance.get("/kidsclothes");
+        setKids(res.data);
+      } catch (error) {
+        console.error("Error fetching kids clothes:", error);
+      } finally {
+        setKidsLoading(false);
+      }
+    };
+
+    const fetchMen = async () => {
+      try {
+        const res = await axiosInstance.get("/mensclothes");
+        setMen(res.data);
+      } catch (error) {
+        console.error("Error fetching men clothes:", error);
+      } finally {
+        setMenLoading(false);
+      }
+    };
+
+    const fetchWomen = async () => {
+      try {
+        const res = await axiosInstance.get("/womensclothes");
+        setWomen(res.data);
+      } catch (error) {
+        console.error("Error fetching women clothes:", error);
+      } finally {
+        setWomenLoading(false);
+      }
+    };
+
+    fetchKids();
+    fetchMen();
+    fetchWomen();
+  }, [axiosInstance]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -122,9 +165,9 @@ const AllClothes = () => {
       </div>
 
       {/* Sections */}
-      <ClothesSection title="Kids Clothes" products={kids} name="kidsclothes" />
-      <ClothesSection title="Men's Clothes" products={men} name="mensclothes" />
-      <ClothesSection title="Women's Clothes" products={women} name="womensclothes" />
+      <ClothesSection title="Kids Clothes" products={kids} name="kidsclothes" isLoading={kidsLoading} />
+      <ClothesSection title="Men's Clothes" products={men} name="mensclothes" isLoading={menLoading} />
+      <ClothesSection title="Women's Clothes" products={women} name="womensclothes" isLoading={womenLoading} />
     </div>
   );
 };

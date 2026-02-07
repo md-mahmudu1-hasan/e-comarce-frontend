@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FiShoppingCart,
   FiPlus,
@@ -9,76 +9,58 @@ import {
   FiMapPin,
 } from "react-icons/fi";
 import { Link } from "react-router";
+import useCart from "../../Hook/useCart";
+import useAuth from "../../Hook/UseAuth";
+import useAxios from "../../Hook/useAxios";
+import Loader from "../../components/Loader";
+import toast from "react-hot-toast";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Wireless Headphones",
-      price: 2999,
-      originalPrice: 3999,
-      discount: 25,
-      quantity: 1,
-      image:
-        "https://via.placeholder.com/100x100/2d7a2d/ffffff?text=Headphones",
-    },
-    {
-      id: 2,
-      name: "Smart Watch",
-      price: 5999,
-      originalPrice: 7999,
-      discount: 25,
-      quantity: 2,
-      image:
-        "https://via.placeholder.com/100x100/2d7a2d/ffffff?text=Smart+Watch",
-    },
-    {
-      id: 3,
-      name: "Laptop Backpack",
-      price: 1299,
-      originalPrice: 1799,
-      discount: 28,
-      quantity: 1,
-      image: "https://via.placeholder.com/100x100/2d7a2d/ffffff?text=Backpack",
-    },
-  ]);
-
-  // Mock user address state - in real app, this would come from user context/API
+  const { cart, removeFromCart, increaseQty, decreaseQty } = useCart();
   const [userAddress, setUserAddress] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const axiosInstance = useAxios();
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
+  useEffect(() => {
+    if (user?.email) {
+      setLoading(true);
+      axiosInstance
+        .get(`/userInfo/by-email/${user?.email}`)
+        .then((res) => {
+          setUserAddress(res?.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }
+  }, [user]);
 
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item,
-      ),
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems((items) => items.filter((item) => item.id !== id));
-  };
-
-  const calculateSubtotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
+  const OrderSubmit = () => {
+    toast.success("Order Confermed.Check your gmail")
+  }
+  const getSubtotal = () => {
+    return cart.reduce(
+      (total, item) => total + item.after_discount_price * item.quantity,
       0,
     );
   };
 
-  const calculateTotalDiscount = () => {
-    return cartItems.reduce((total, item) => {
-      const discountAmount = item.originalPrice - item.price;
-      return total + discountAmount * item.quantity;
-    }, 0);
+  const getOriginalTotal = () => {
+    return cart.reduce(
+      (total, item) => total + item.main_price * item.quantity,
+      0,
+    );
   };
 
-  const calculateTotal = () => {
-    return calculateSubtotal();
+  const getDiscountAmount = () => {
+    return getOriginalTotal() - getSubtotal();
   };
 
-  if (cartItems.length === 0) {
+  if (loading) return <Loader />;
+
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-4xl mx-auto px-4">
@@ -114,15 +96,14 @@ const Cart = () => {
             Shopping Cart
           </h1>
           <p className="text-gray-600">
-            {cartItems.length} {cartItems.length === 1 ? "item" : "items"} in
-            your cart
+            {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <div
                 key={item.id}
                 className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
@@ -131,8 +112,8 @@ const Cart = () => {
                   {/* Product Image */}
                   <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={item.images[0]}
+                      alt={item.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -140,14 +121,14 @@ const Cart = () => {
                   {/* Product Details */}
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      {item.name}
+                      {item.title}
                     </h3>
                     <div className="flex items-center space-x-3 mb-3">
                       <span className="text-2xl font-bold text-green-600">
-                        ₹{item.price}
+                        ₹{item.after_discount_price}
                       </span>
                       <span className="text-lg text-gray-400 line-through">
-                        ₹{item.originalPrice}
+                        ₹{item.main_price}
                       </span>
                       <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs font-semibold">
                         {item.discount}% OFF
@@ -158,9 +139,7 @@ const Cart = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity - 1)
-                          }
+                          onClick={() => decreaseQty(item._id)}
                           className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
                         >
                           <FiMinus className="w-4 h-4" />
@@ -169,9 +148,7 @@ const Cart = () => {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
-                          }
+                          onClick={() => increaseQty(item._id, item.stock)}
                           className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
                         >
                           <FiPlus className="w-4 h-4" />
@@ -180,7 +157,7 @@ const Cart = () => {
 
                       {/* Remove Button */}
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeFromCart(item._id)}
                         className="text-red-600 hover:text-red-700 transition-colors"
                       >
                         <FiTrash2 className="w-5 h-5" />
@@ -218,10 +195,7 @@ const Cart = () => {
                 </div>
                 {userAddress ? (
                   <p className="text-sm text-gray-600">
-                    {userAddress.street}
-                    <br />
-                    {userAddress.city}, {userAddress.state}{" "}
-                    {userAddress.postalCode}
+                    {userAddress.address}
                     <br />
                     Phone: {userAddress.phone}
                   </p>
@@ -235,18 +209,15 @@ const Cart = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>
-                    Subtotal (
-                    {cartItems.reduce(
-                      (total, item) => total + item.quantity,
-                      0,
-                    )}{" "}
+                    Subtotal ({cart.length}
                     items)
                   </span>
-                  <span>₹{calculateSubtotal().toFixed(2)}</span>
+                  <span>₹{getSubtotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-green-600">
                   <span>Discount</span>
-                  <span>-₹{calculateTotalDiscount().toFixed(2)}</span>
+                  <span>-₹{getDiscountAmount().toFixed(2)}</span>
+
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Delivery Fee</span>
@@ -255,12 +226,12 @@ const Cart = () => {
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg font-bold text-gray-900">
                     <span>Total</span>
-                    <span>₹{calculateTotal().toFixed(2)}</span>
+                    <span>₹{getSubtotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Promo Code */}
+              {/* Promo Code
               <div className="mb-6">
                 <div className="flex space-x-2">
                   <input
@@ -272,12 +243,12 @@ const Cart = () => {
                     Apply
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                <button className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold">
-                  Proceed to Checkout
+                <button onClick={OrderSubmit} className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold">
+                  Conferm Order
                 </button>
                 <Link
                   to="/"
@@ -288,7 +259,7 @@ const Cart = () => {
               </div>
 
               {/* Security Badge */}
-              <div className="mt-6 text-center">
+              {/* <div className="mt-6 text-center">
                 <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
                   <svg
                     className="w-4 h-4"
@@ -303,7 +274,7 @@ const Cart = () => {
                   </svg>
                   <span>Secure Checkout</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
