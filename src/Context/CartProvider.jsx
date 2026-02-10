@@ -87,6 +87,7 @@ const increaseQty = (id, maxQty = 10) => {
     <CartContext.Provider
       value={{
         cart,
+        setCart,
         addToCart,
         removeFromCart,
         increaseQty,

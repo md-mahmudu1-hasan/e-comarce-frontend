@@ -16,9 +16,10 @@ import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
 
 const Cart = () => {
-  const { cart, removeFromCart, increaseQty, decreaseQty } = useCart();
+  const { cart, setCart, removeFromCart, increaseQty, decreaseQty } = useCart();
   const [userAddress, setUserAddress] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [orderLoading, setOrderLoading] = useState(false);
   const { user } = useAuth();
   const axiosInstance = useAxios();
 
@@ -37,9 +38,33 @@ const Cart = () => {
     }
   }, [user]);
 
-  const OrderSubmit = () => {
-    toast.success("Order Confermed.Check your gmail")
-  }
+  const OrderSubmit = async () => {
+    if (!userAddress) {
+      return toast.error("Please add delivery address");
+    }
+
+    const orderData = {
+      userEmail: user.email,
+      userName: userAddress.name,
+      cart,
+      total: getSubtotal(),
+      address: userAddress.address,
+      phone: userAddress.phone,
+    };
+
+    try {
+      setOrderLoading(true);
+      await axiosInstance.post("/order-confirm", orderData);
+      toast.success("Order confirmed! Check your Gmail");
+      setCart([]);
+      localStorage.removeItem("cart");
+    } catch {
+      toast.error("Order failed");
+    } finally {
+      setOrderLoading(false);
+    }
+  };
+
   const getSubtotal = () => {
     return cart.reduce(
       (total, item) => total + item.after_discount_price * item.quantity,
@@ -217,12 +242,14 @@ const Cart = () => {
                 <div className="flex justify-between text-green-600">
                   <span>Discount</span>
                   <span>-₹{getDiscountAmount().toFixed(2)}</span>
-
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Delivery Fee</span>
                   <span className="text-green-600">FREE</span>
                 </div>
+                <span className="text-xs text-center text-gray-600">
+                  (নীলফামারী শহরের বাইরে হলে ৬০ টাকা)
+                </span>
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg font-bold text-gray-900">
                     <span>Total</span>
@@ -247,8 +274,22 @@ const Cart = () => {
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                <button onClick={OrderSubmit} className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold">
-                  Conferm Order
+                <button
+                  onClick={OrderSubmit}
+                  disabled={orderLoading}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-600 disabled:hover:to-orange-600 flex items-center justify-center space-x-2"
+                >
+                  {orderLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Processing...</span>
+                    </>
+                  ) : (
+                    <span>Confirm Order</span>
+                  )}
                 </button>
                 <Link
                   to="/"
