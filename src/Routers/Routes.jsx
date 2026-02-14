@@ -19,6 +19,7 @@ import BestClothesDetails from "../components/BestClothesDetails";
 import KidsClothesDetails from "../Pages/AllClothes/KidsClothes";
 import MensClothesDetails from "../Pages/AllClothes/MensClothes";
 import WomensClothesDetails from "../Pages/AllClothes/Womenclothes";
+import PrivetRoute from "../Authentication/Privetroute/Privetroute";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +60,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <Cart></Cart>,
+        element: <PrivetRoute><Cart></Cart></PrivetRoute>,
       },
       {
         path: "all-clothes",
@@ -86,7 +87,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "profile",
-    element: <Profilelayout></Profilelayout>,
+    element:<PrivetRoute><Profilelayout></Profilelayout></PrivetRoute>,
     children: [
       {
         index: true,

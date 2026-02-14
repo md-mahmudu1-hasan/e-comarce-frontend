@@ -20,16 +20,19 @@ const Profilelayout = () => {
   const { SignOut, user } = useAuth();
   const navigate = useNavigate();
   const axiosInstance = useAxios();
-  
+
   useEffect(() => {
     if (user?.email) {
       setLoading(true);
-      axiosInstance.get(`/userInfo/by-email/${user?.email}`).then((res) => {
-        setData(res?.data);
-        setLoading(false);
-      }).catch(() => {
-        setLoading(false);
-      });
+      axiosInstance
+        .get(`/userInfo/by-email/${user?.email}`)
+        .then((res) => {
+          setData(res?.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     }
   }, [user]);
 
@@ -54,7 +57,7 @@ const Profilelayout = () => {
       case "profile":
         return <MyProfile data={data} />;
       case "orders":
-        return <MyOrders />;
+        return <MyOrders data={data}/>;
       case "reviews":
         return <MyReviews />;
       default:

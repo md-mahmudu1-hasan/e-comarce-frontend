@@ -8,7 +8,7 @@ import {
   FiEdit2,
   FiMapPin,
 } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useCart from "../../Hook/useCart";
 import useAuth from "../../Hook/UseAuth";
 import useAxios from "../../Hook/useAxios";
@@ -22,6 +22,7 @@ const Cart = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const { user } = useAuth();
   const axiosInstance = useAxios();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.email) {
@@ -56,6 +57,7 @@ const Cart = () => {
       setOrderLoading(true);
       await axiosInstance.post("/order-confirm", orderData);
       toast.success("Order confirmed! Check your Gmail");
+       navigate("/profile?click=true");
       setCart([]);
       localStorage.removeItem("cart");
     } catch {
