@@ -7,6 +7,7 @@ import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Loader from "../../components/Loader";
 import useCart from "../../Hook/useCart";
 import useAuth from "../../Hook/UseAuth";
+import { FaRegStar } from "react-icons/fa";
 
 const WomensClothesDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -16,10 +17,12 @@ const WomensClothesDetails = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+  const { user } = useAuth();
 
   const axiosInstance = useAxios();
-    const navigate = useNavigate();
-      const { user } = useAuth();
+  const navigate = useNavigate();
 
   const renderStars = (rating) => {
     const stars = [];
@@ -105,7 +108,26 @@ const WomensClothesDetails = () => {
       .catch(() => setLoading(false));
   }, [id]);
 
-  console.log(clothesdetails);
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setReviewsLoading(true);
+        const res = await axiosInstance.get(`/reviews`);
+        if (res.data) {
+          const needdata = res.data.filter((item) => item.productid == id);
+          setReviews(needdata);
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchReviews();
+    }
+  }, [id]);
 
   if (loading) {
     return <Loader />;
@@ -333,34 +355,67 @@ const WomensClothesDetails = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Customer Reviews
           </h2>
-          {/* {clothesdetails.reviews.length > 0 ? (
-            <div className="space-y-4">
-              {clothesdetails.reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="border border-gray-200 rounded-lg p-6 bg-gray-50"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900">
-                        {review.user}
-                      </h4>
-                      <div className="flex mt-1">
-                        {renderStars(review.rating)}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed">
-                    {review.comment}
-                  </p>
-                </div>
-              ))}
+          {reviewsLoading ? (
+            <div className="flex justify-center py-8">
+              <Loader size="large" text="Loading reviews..." />
             </div>
           ) : (
-            <p className="text-center text-gray-500 italic py-8">
-              No reviews yet. Be the first to review this product!
-            </p>
-          )} */}
+            <>
+              {reviews.length > 0 ? (
+                <div className="space-y-4">
+                  {reviews.map((review) => (
+                    <div
+                      key={review._id}
+                      className="border border-gray-200 rounded-lg p-6 bg-gray-50"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h4 className="text-lg font-semibold text-gray-900">
+                            {review.userName}
+                          </h4>
+                          <h4 className="text-sm font-medium text-gray-900">
+                            {review.userEmail}
+                          </h4>
+                          <div className="flex mt-1">
+                            {renderStars(review.rating)}
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 leading-relaxed">
+                        {review.comment}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-4xl"><FaRegStar /></span>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No reviews yet for this product
+                  </h3>
+                  <p className="text-gray-500 mb-6">
+                    Be the first to review this product!
+                  </p>
+                  <button
+                    onClick={() => {
+                      if (user) {
+                        // Navigate to MyOrders page to add review
+                        navigate("/profile");
+                      } else {
+                        navigate("/login");
+                        toast.success("Please login to add review");
+                      }
+                    }}
+                    className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    Add Review
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
 
