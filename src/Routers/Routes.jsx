@@ -60,7 +60,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <PrivetRoute><Cart></Cart></PrivetRoute>,
+        element: (
+          <PrivetRoute>
+            <Cart></Cart>
+          </PrivetRoute>
+        ),
       },
       {
         path: "all-clothes",
@@ -73,21 +77,25 @@ export const router = createBrowserRouter([
       {
         path: "kidsclothes/:id",
         element: <KidsClothesDetails></KidsClothesDetails>,
-      },  
+      },
       {
         path: "womensclothes/:id",
-        element: <WomensClothesDetails></WomensClothesDetails>
+        element: <WomensClothesDetails></WomensClothesDetails>,
       },
       {
         path: "mensclothes/:id",
         element: <MensClothesDetails></MensClothesDetails>,
       },
     ],
-    // errorElement: <NotFound />,
+    errorElement: <NotFound />,
   },
   {
     path: "profile",
-    element:<PrivetRoute><Profilelayout></Profilelayout></PrivetRoute>,
+    element: (
+      <PrivetRoute>
+        <Profilelayout></Profilelayout>
+      </PrivetRoute>
+    ),
     children: [
       {
         index: true,
@@ -104,8 +112,8 @@ export const router = createBrowserRouter([
     ],
     errorElement: <NotFound />,
   },
-  // {
-  //   path: "*",
-  //   element: <NotFound />,
-  // },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);

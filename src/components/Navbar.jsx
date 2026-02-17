@@ -1,16 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { FiUser, FiMenu, FiX } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { RiLoginBoxLine } from "react-icons/ri";
 import useAuth from "../Hook/UseAuth";
 import useCart from "../Hook/useCart";
+import useAxios from "../Hook/useAxios";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuth();
   const { getCartCount } = useCart();
   const cartCount = getCartCount();
+  const axiosInstance = useAxios();
+
+  const [results, setResults] = useState([]);
+  const [query, setQuery] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSearch = async (value) => {
+    setQuery(value);
+
+    if (!value) {
+      setResults([]);
+      return;
+    }
+
+    try {
+      const res = await axiosInstance.get(`/search?q=${value}`);
+      setResults(res.data);
+    } catch (err) {
+      console.error("Search error:", err);
+    }
+  };
 
   return (
     <nav className="sticky top-0 bg-gradient-to-r from-green-600 to-orange-500/70 shadow-lg z-50 rounded-xl">
@@ -21,23 +44,44 @@ const Navbar = () => {
             <img src="/logo.png" alt="ShopHub Logo" className="w-35 px-4" />
           </Link>
 
-          {/* Search Box - Hidden on mobile, shown on tablet and up */}
+          {/* Desktop Search Box */}
           <div className="hidden md:flex">
-            <div className="flex items-center bg-white/90 backdrop-blur rounded-lg w-[500px] overflow-hidden">
-              <input
-                type="text"
-                placeholder="Search for products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-3 bg-transparent outline-none text-gray-700 placeholder-gray-500"
-              />
-              <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
-                Search
-              </button>
+            <div className="relative w-[500px]">
+              <div className="flex items-center bg-white/90 backdrop-blur rounded-lg overflow-hidden">
+                <input
+                  type="text"
+                  placeholder="Search for Clothes..."
+                  value={query}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  className="flex-1 px-4 py-3 bg-transparent outline-none text-gray-700 placeholder-gray-500"
+                />
+                <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
+                  Search
+                </button>
+              </div>
+
+              {/* Search Results Dropdown */}
+              {results.length > 0 && (
+                <div className="absolute w-full bg-white shadow-lg rounded-lg mt-1 max-h-60 overflow-y-auto z-50">
+                  {results.map((item) => (
+                    <div
+                      key={item._id}
+                      onClick={() => {
+                        navigate(`/${item.type}/${item._id}`);
+                        setResults([]);
+                        setQuery("");
+                      }}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {item.title}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Desktop Icons - Hidden on mobile */}
+          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/cart"
@@ -67,7 +111,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Icons */}
           <div className="md:hidden flex items-center space-x-2">
             <Link
               to="/cart"
@@ -95,20 +139,39 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Search - Only visible on mobile */}
-        <div className="md:hidden mt-4">
+        {/* Mobile Search */}
+        <div className="md:hidden mt-4 relative">
           <div className="flex items-center bg-white/90 backdrop-blur rounded-lg overflow-hidden">
             <input
               type="text"
-              placeholder="Search for products..."
+              placeholder="Search for Clothes..."
+              value={query}
+              onChange={(e) => handleSearch(e.target.value)}
               className="flex-1 px-4 py-2 bg-transparent focus:outline-none text-gray-800"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all">
               Search
             </button>
           </div>
+
+          {/* Mobile Search Results */}
+          {results.length > 0 && (
+            <div className="absolute w-full bg-white shadow-lg rounded-lg mt-1 max-h-60 overflow-y-auto z-50">
+              {results.map((item) => (
+                <div
+                  key={item._id}
+                  onClick={() => {
+                    navigate(`/${item.type}/${item._id}`);
+                    setResults([]);
+                    setQuery("");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  {item.title}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </nav>
