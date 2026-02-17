@@ -7,8 +7,6 @@ import Loader from "./Loader";
 import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import useCart from "../Hook/useCart";
 import useAuth from "../Hook/UseAuth";
-import { FaRegStar } from "react-icons/fa";
-
 const BestClothesDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -351,67 +349,124 @@ const BestClothesDetails = () => {
 
         {/* Reviews Section */}
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Customer Reviews
-          </h2>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Customer Reviews
+            </h2>
+            <div className="flex items-center gap-4">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600">
+                  {reviews.length > 0 ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1) : "0.0"}
+                </div>
+                <div className="text-sm text-gray-600">Average Rating</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600">{reviews.length}</div>
+                <div className="text-sm text-gray-600">Total Reviews</div>
+              </div>
+            </div>
+          </div>
+          
           {reviewsLoading ? (
-            <div className="flex justify-center py-8">
-              <Loader size="large" text="Loading reviews..." />
+            <div className="flex justify-center py-12">
+              <div className="text-center">
+                <div className="w-16 h-16 border-4 border-gray-200 border-t-green-500 border-r-orange-500 rounded-full animate-spin mb-4"></div>
+                <p className="text-gray-600 font-medium">Loading amazing reviews...</p>
+              </div>
             </div>
           ) : (
             <>
               {reviews.length > 0 ? (
-                <div className="space-y-4">
-                  {reviews.map((review) => (
+                <div className="space-y-6">
+                  {reviews.map((review, index) => (
                     <div
                       key={review._id}
-                      className="border border-gray-200 rounded-lg p-6 bg-gray-50"
+                      className="border border-gray-200 rounded-xl p-6 bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 hover:border-green-300 relative overflow-hidden"
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h4 className="text-lg font-semibold text-gray-900">
-                            {review.userName}
-                          </h4>
-                          <h4 className="text-sm font-medium text-gray-900">
-                            {review.userEmail}
-                          </h4>
-                          <div className="flex mt-1">
-                            {renderStars(review.rating)}
+                      {/* Review Header */}
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                              {review.userName?.charAt(0)?.toUpperCase() || "U"}
+                            </div>
+                            <div>
+                              <h4 className="text-lg font-semibold text-gray-900">
+                                {review.userName}
+                              </h4>
+                              <p className="text-sm text-gray-500">
+                                Verified Buyer
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <span
+                                  key={i}
+                                  className={`text-2xl transition-all duration-200 ${
+                                    i < review.rating
+                                      ? "text-yellow-400 drop-shadow-lg"
+                                      : "text-gray-300"
+                                  }`}
+                                >
+                                  ★
+                                </span>
+                              ))}
+                            </div>
+                            <span className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
+                              {review.rating}.0
+                            </span>
                           </div>
                         </div>
+                        <div className="text-sm text-gray-500">
+                          {new Date(review.createdAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                          })}
+                        </div>
                       </div>
-                      <p className="text-gray-600 leading-relaxed">
-                        {review.comment}
-                      </p>
+
+                      {/* Review Content */}
+                      <div className="relative">
+                        <p className="text-gray-700 leading-relaxed text-lg mb-4 pl-4 border-l-4 border-green-500">
+                          {review.comment}
+                        </p>
+                      </div>
+                      {/* Review Index Badge */}
+                      <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
+                        #{index + 1}
+                      </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8">
-                  <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-4xl">
-                      <FaRegStar />
-                    </span>
+                <div className="text-center py-16">
+                  <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
+                    <span className="text-6xl text-gray-400 relative z-10">⭐</span>
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    No reviews yet for this product
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    Be the First to Review!
                   </h3>
-                  <p className="text-gray-500 mb-6">
-                    Be the first to review this product!
+                  <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                    Share your experience with this product and help other customers make informed decisions.
                   </p>
-                  <button
+                  <button 
                     onClick={() => {
                       if (user) {
-                        // Navigate to MyOrders page to add review
                         navigate("/profile");
                       } else {
                         navigate("/login");
                         toast.success("Please login to add review");
                       }
                     }}
-                    className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                   >
-                    Add Review
+                    <span className="flex items-center gap-2">
+                      Write a Review
+                    </span>
                   </button>
                 </div>
               )}
