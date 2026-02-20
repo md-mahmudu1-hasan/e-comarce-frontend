@@ -8,6 +8,7 @@ import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import useCart from "../Hook/useCart";
 import useAuth from "../Hook/UseAuth";
 import { FaRegStar } from "react-icons/fa";
+
 const BestClothesDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -22,6 +23,11 @@ const BestClothesDetails = () => {
 
   const axiosInstance = useAxios();
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const renderStars = (rating) => {
     const stars = [];

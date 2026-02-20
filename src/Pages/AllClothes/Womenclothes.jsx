@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { toast } from "react-hot-toast";
 import useAxios from "../../Hook/useAxios";
-import { useParams } from "react-router";
-import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Loader from "../../components/Loader";
+import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import useCart from "../../Hook/useCart";
 import useAuth from "../../Hook/UseAuth";
 import { FaRegStar } from "react-icons/fa";
@@ -23,6 +22,11 @@ const WomensClothesDetails = () => {
 
   const axiosInstance = useAxios();
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const renderStars = (rating) => {
     const stars = [];

@@ -142,17 +142,6 @@ const CompleteProfile = () => {
                 {isSubmitting ? "Saving Profile..." : "Complete Profile"}
               </button>
             </div>
-
-            {/* Skip for now */}
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => navigate("/")}
-                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                Skip for now
-              </button>
-            </div>
           </form>
         </div>
 
