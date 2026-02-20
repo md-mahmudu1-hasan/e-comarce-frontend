@@ -7,6 +7,7 @@ import Loader from "./Loader";
 import { AiOutlineClose, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import useCart from "../Hook/useCart";
 import useAuth from "../Hook/UseAuth";
+import { FaRegStar } from "react-icons/fa";
 const BestClothesDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -300,7 +301,7 @@ const BestClothesDetails = () => {
                   <button
                     onClick={() => {
                       navigate("/login");
-                      toast.success("Please login to add to cart");
+                      toast.error("Please login for add to cart");
                     }}
                     disabled={clothesdetails.stock === 0}
                     className={`flex-1 sm:flex-none px-8 py-3 rounded-lg font-semibold transition-all ${
@@ -319,28 +320,16 @@ const BestClothesDetails = () => {
                   Key Features
                 </h3>
                 <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
+                  {
+                    clothesdetails.key_features.map((data , index) => (
+                  <li key={index} className="flex items-start gap-2">
                     <span className="text-green-600 font-bold">✓</span>
                     <span className="text-gray-600">
-                      Premium quality materials
+                      {data}
                     </span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-600 font-bold">✓</span>
-                    <span className="text-gray-600">
-                      1 year manufacturer warranty
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-600 font-bold">✓</span>
-                    <span className="text-gray-600">
-                      Free shipping on orders above ₹999
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-600 font-bold">✓</span>
-                    <span className="text-gray-600">30-day return policy</span>
-                  </li>
+                    ))
+                  }
                 </ul>
               </div>
             </div>
@@ -445,7 +434,7 @@ const BestClothesDetails = () => {
                 <div className="text-center py-16">
                   <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
-                    <span className="text-6xl text-gray-400 relative z-10">⭐</span>
+                    <span className="text-6xl text-gray-400 relative z-10"><FaRegStar /></span>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
                     Be the First to Review!
@@ -459,7 +448,7 @@ const BestClothesDetails = () => {
                         navigate("/profile");
                       } else {
                         navigate("/login");
-                        toast.success("Please login to add review");
+                        toast.success("Please login for add review");
                       }
                     }}
                     className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"

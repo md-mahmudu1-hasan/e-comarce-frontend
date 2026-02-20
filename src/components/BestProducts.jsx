@@ -43,7 +43,7 @@ const BestProducts = () => {
 
   useEffect(() => {
     axiosInstance.get("/bestclothes").then((response) => {
-      setClothes(response.data.slice(0, 8));
+      setClothes(response.data);
       setIsLoading(false);
     });
   }, []);
