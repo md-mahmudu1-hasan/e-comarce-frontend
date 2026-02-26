@@ -139,7 +139,7 @@ const MensClothesDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm mb-8">
           <Link
@@ -162,7 +162,7 @@ const MensClothesDetails = () => {
         </nav>
 
         {/* Product Details */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Product Images */}
             <div className="space-y-4">
@@ -170,7 +170,7 @@ const MensClothesDetails = () => {
                 <img
                   src={clothesdetails.images[selectedImageIndex]}
                   alt={clothesdetails.title}
-                  className="w-full h-full object-fit transition-transform duration-300 hover:scale-105 cursor-pointer rounded-lg"
+                  className="w-full h-full object-contain transition-transform duration-300 hover:scale-105 cursor-pointer rounded-lg"
                   onClick={() => openSlider(selectedImageIndex)}
                 />
               </div>
@@ -178,7 +178,7 @@ const MensClothesDetails = () => {
                 {clothesdetails.images?.map((image, index) => (
                   <div
                     key={index}
-                    className={`w-20 h-20 overflow-hidden rounded-lg border-2 cursor-pointer transition-all duration-200 flex-shrink-0 ${
+                    className={`w-20 h-20 overflow-hidden rounded-lg border-2 cursor-pointer transition-all duration-200 shrink-0 ${
                       selectedImageIndex === index
                         ? "border-green-700 shadow-lg scale-105"
                         : "border-gray-200 hover:border-green-500 hover:scale-105"
@@ -326,16 +326,12 @@ const MensClothesDetails = () => {
                   Key Features
                 </h3>
                 <ul className="space-y-2">
-                  {
-                    clothesdetails.key_features.map((data , index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <span className="text-green-600 font-bold">✓</span>
-                    <span className="text-gray-600">
-                      {data}
-                    </span>
-                  </li>
-                    ))
-                  }
+                  {clothesdetails.key_features.map((data, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-green-600 font-bold">✓</span>
+                      <span className="text-gray-600">{data}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -343,30 +339,44 @@ const MensClothesDetails = () => {
         </div>
 
         {/* Reviews Section */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="flex items-center justify-between mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
             <h2 className="text-2xl font-bold text-gray-900">
               Customer Reviews
             </h2>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6 sm:gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">
-                  {reviews.length > 0 ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1) : "0.0"}
+                <div className="text-2xl sm:text-3xl font-bold text-green-600">
+                  {reviews.length > 0
+                    ? (
+                        reviews.reduce((acc, r) => acc + r.rating, 0) /
+                        reviews.length
+                      ).toFixed(1)
+                    : "0.0"}
                 </div>
-                <div className="text-sm text-gray-600">Average Rating</div>
+                <div className="text-xs sm:text-sm text-gray-500 font-medium">
+                  Average Rating
+                </div>
               </div>
+              <div className="w-px h-10 bg-gray-200"></div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">{reviews.length}</div>
-                <div className="text-sm text-gray-600">Total Reviews</div>
+                <div className="text-2xl sm:text-3xl font-bold text-blue-600">
+                  {reviews.length}
+                </div>
+                <div className="text-xs sm:text-sm text-gray-500 font-medium">
+                  Total Reviews
+                </div>
               </div>
             </div>
           </div>
-          
+
           {reviewsLoading ? (
             <div className="flex justify-center py-12">
               <div className="text-center">
                 <div className="w-16 h-16 border-4 border-gray-200 border-t-green-500 border-r-orange-500 rounded-full animate-spin mb-4"></div>
-                <p className="text-gray-600 font-medium">Loading amazing reviews...</p>
+                <p className="text-gray-600 font-medium">
+                  Loading amazing reviews...
+                </p>
               </div>
             </div>
           ) : (
@@ -376,22 +386,25 @@ const MensClothesDetails = () => {
                   {reviews.map((review, index) => (
                     <div
                       key={review._id}
-                      className="border border-gray-200 rounded-xl p-6 bg-gradient-to-br from-white to-gray-50 hover:shadow-lg transition-all duration-300 hover:border-green-300 relative overflow-hidden"
+                      className="border border-gray-100 rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-white to-gray-50/50 hover:shadow-xl transition-all duration-300 hover:border-green-200 relative overflow-hidden group"
                     >
                       {/* Review Header */}
-                      <div className="flex items-start justify-between mb-4">
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-md text-sm sm:text-base">
                               {review.userName?.charAt(0)?.toUpperCase() || "U"}
                             </div>
                             <div>
-                              <h4 className="text-lg font-semibold text-gray-900">
+                              <h4 className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
                                 {review.userName}
                               </h4>
-                              <p className="text-sm text-gray-500">
-                                Verified Buyer
-                              </p>
+                              <div className="flex items-center gap-1.5 mt-0.5">
+                                <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                                <p className="text-xs text-green-600 font-semibold uppercase tracking-wider">
+                                  Verified Buyer
+                                </p>
+                              </div>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
@@ -399,40 +412,43 @@ const MensClothesDetails = () => {
                               {[...Array(5)].map((_, i) => (
                                 <span
                                   key={i}
-                                  className={`text-2xl transition-all duration-200 ${
+                                  className={`text-xl sm:text-2xl transition-all duration-200 ${
                                     i < review.rating
-                                      ? "text-yellow-400 drop-shadow-lg"
-                                      : "text-gray-300"
+                                      ? "text-yellow-400 drop-shadow-sm"
+                                      : "text-gray-200"
                                   }`}
                                 >
                                   ★
                                 </span>
                               ))}
                             </div>
-                            <span className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
+                            <span className="ml-1 sm:ml-2 px-2 py-0.5 bg-green-50 text-green-700 rounded-full text-xs sm:text-sm font-bold">
                               {review.rating}.0
                             </span>
                           </div>
                         </div>
-                        <div className="text-sm text-gray-500">
-                          {new Date(review.createdAt).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric"
-                          })}
+                        <div className="text-xs sm:text-sm text-gray-400 font-medium bg-gray-100/50 px-3 py-1 rounded-full self-start sm:self-auto">
+                          {new Date(review.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
                         </div>
                       </div>
 
                       {/* Review Content */}
-                      <div className="relative">
-                        <p className="text-gray-700 leading-relaxed text-lg mb-4 pl-4 border-l-4 border-green-500">
+                      <div className="relative pl-4 border-l-2 sm:border-l-4 border-green-500/30 group-hover:border-green-500 transition-colors duration-300">
+                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg">
                           {review.comment}
                         </p>
                       </div>
 
                       {/* Review Index Badge */}
-                      <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
-                        #{index + 1}
+                      <div className="absolute -top-1 -right-1 w-12 h-12 bg-gray-50 flex items-center justify-center rounded-bl-3xl text-gray-200 text-xl font-black group-hover:text-green-50 transition-colors duration-300 z-0">
+                        {index + 1}
                       </div>
                     </div>
                   ))}
@@ -441,15 +457,18 @@ const MensClothesDetails = () => {
                 <div className="text-center py-16">
                   <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
-                    <span className="text-6xl text-gray-400 relative z-10"><FaRegStar /></span>
+                    <span className="text-6xl text-gray-400 relative z-10">
+                      <FaRegStar />
+                    </span>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
                     Be the First to Review!
                   </h3>
                   <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                    Share your experience with this product and help other customers make informed decisions.
+                    Share your experience with this product and help other
+                    customers make informed decisions.
                   </p>
-                  <button 
+                  <button
                     onClick={() => {
                       if (user) {
                         navigate("/profile");

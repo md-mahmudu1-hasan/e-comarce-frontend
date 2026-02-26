@@ -16,6 +16,7 @@ import {
 import toast from "react-hot-toast";
 import useAxios from "../../Hook/useAxios";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyOrders = ({ data }) => {
   const [orders, setOrders] = useState([]);
@@ -231,12 +232,12 @@ const MyOrders = ({ data }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8 overflow-x-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
-            <FiPackage className="mr-3 text-green-600" />
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center">
+            <FiPackage className="mr-3 text-green-600 shrink-0" />
             My Orders
           </h1>
           <p className="text-gray-600">Track and manage your orders</p>
@@ -255,34 +256,36 @@ const MyOrders = ({ data }) => {
                   return (
                     <div
                       key={order._id}
-                      className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 ${statusConfig.borderColor}`}
+                      className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border-l-4 ${statusConfig.borderColor} overflow-hidden`}
                     >
-                      <div className="p-6">
+                      <div className="p-4 sm:p-6">
                         {/* Order Header with Status */}
-                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                          <div className="mb-4 lg:mb-0">
-                            <div className="flex items-center space-x-3 mb-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                               <div
-                                className={`px-3 py-1 rounded-full ${statusConfig.bgColor} ${statusConfig.textColor} text-sm font-medium flex items-center`}
+                                className={`px-2.5 py-1 rounded-full ${statusConfig.bgColor} ${statusConfig.textColor} text-[10px] sm:text-xs font-bold flex items-center shrink-0 uppercase tracking-tighter sm:tracking-normal`}
                               >
-                                <StatusIcon className="mr-2 w-4 h-4" />
+                                <StatusIcon className="mr-1 w-3 sm:w-3.5 h-3 sm:h-3.5" />
                                 {statusConfig.label}
                               </div>
-                              <span className="text-sm text-gray-500">
+                              <span className="text-xs sm:text-sm text-gray-500 font-medium whitespace-nowrap">
                                 Order #{order._id?.slice(-8)}
                               </span>
                             </div>
-                            <div className="flex items-center text-sm text-gray-500">
-                              <FiCalendar className="mr-2 w-4 h-4" />
-                              Placed on {formatDate(order.createdAt)}
+                            <div className="flex items-center text-xs sm:text-sm text-gray-500">
+                              <FiCalendar className="mr-1.5 w-3.5 h-3.5 shrink-0" />
+                              <span className="truncate">
+                                Placed on {formatDate(order.createdAt)}
+                              </span>
                             </div>
                           </div>
 
-                          <div className="flex items-center space-x-3">
+                          <div className="flex items-center gap-2 sm:gap-3">
                             {order.status?.toLowerCase() === "pending" && (
                               <button
                                 onClick={() => handleCancelOrder(order._id)}
-                                className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center"
+                                className="flex-1 sm:flex-none px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all flex items-center justify-center active:scale-95 shadow-sm"
                               >
                                 <FiX className="mr-2 w-4 h-4" />
                                 Cancel Order
@@ -291,7 +294,7 @@ const MyOrders = ({ data }) => {
                             {order.status?.toLowerCase() === "confirmed" && (
                               <button
                                 onClick={() => handleAddReview(order)}
-                                className="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center"
+                                className="flex-1 sm:flex-none px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all flex items-center justify-center active:scale-95 shadow-sm"
                               >
                                 <FiStar className="mr-2 w-4 h-4" />
                                 Add Review
@@ -301,36 +304,33 @@ const MyOrders = ({ data }) => {
                         </div>
 
                         {/* Order Items */}
-                        <div className="border-t border-gray-100 pt-4">
+                        <div className="border-t border-gray-50 pt-4">
                           <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                             <FiShoppingCart className="mr-2 w-4 h-4" />
                             Order Items ({order.products?.length || 0})
                           </h4>
-                          <div className="space-y-3">
+                          <div className="space-y-4">
                             {order.products?.map((item, index) => (
                               <div
                                 key={index}
-                                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                                className="flex items-start sm:items-center justify-between p-3 bg-gray-50/50 hover:bg-gray-50 rounded-xl transition-colors border border-gray-100/50"
                               >
-                                <div className="flex items-center space-x-4">
-                                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                                    <FiPackage className="w-6 h-6 text-gray-400" />
+                                <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                                  <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                                    <FiPackage className="w-5 h-5 sm:w-7 sm:h-7 text-gray-300" />
                                   </div>
-                                  <div>
-                                    <h4 className="font-medium text-gray-900">
+                                  <div className="min-w-0">
+                                    <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-2 sm:line-clamp-1">
                                       {item.title}
                                     </h4>
-                                    <p className="text-sm text-gray-500">
-                                      Quantity: {item.quantity}
+                                    <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5">
+                                      Qty: {item.quantity}
                                     </p>
                                   </div>
                                 </div>
-                                <div className="text-right">
-                                  <p className="font-semibold text-gray-900">
-                                    ৳{item.price}
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    ৳{item.price} × {item.quantity}
+                                <div className="text-right shrink-0">
+                                  <p className="text-sm sm:text-base font-black text-gray-900">
+                                    ৳{item.price * item.quantity}
                                   </p>
                                 </div>
                               </div>
@@ -338,14 +338,13 @@ const MyOrders = ({ data }) => {
                           </div>
                         </div>
 
-                        {/* Order Footer */}
-                        <div className="border-t border-gray-100 mt-4 pt-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center text-sm text-gray-500">
-                              <FiTrendingUp className="mr-2 w-4 h-4" />
-                              Total Amount
+                        <div className="border-t border-gray-50 mt-4 pt-4">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center text-xs sm:text-sm text-gray-500 truncate">
+                              <FiTrendingUp className="mr-2 w-4 h-4 shrink-0" />
+                              <span className="truncate">Total Amount</span>
                             </div>
-                            <div className="text-xl font-bold text-gray-900">
+                            <div className="text-lg sm:text-xl font-bold text-gray-900 shrink-0">
                               ৳{order.totalAmount}
                             </div>
                           </div>
@@ -357,189 +356,187 @@ const MyOrders = ({ data }) => {
               </div>
             ) : (
               /* Empty State */
-              <div className="text-center py-16">
-                <div className="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                  <FiPackage className="w-16 h-16 text-gray-400" />
+              <div className="text-center py-20 px-4">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+                  <FiPackage className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300" />
+                  <div className="absolute inset-0 border-4 border-dashed border-gray-200 rounded-full animate-[spin_10s_linear_infinite]"></div>
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl sm:text-2xl font-black text-gray-900 mb-3">
                   No orders yet
                 </h3>
                 <p className="text-gray-500 mb-8 max-w-md mx-auto">
                   You haven't placed any orders yet. Start shopping to see your
                   orders here.
                 </p>
-                <button className="px-8 py-3 bg-gradient-to-r from-green-600 to-orange-500 text-white rounded-lg hover:from-green-700 hover:to-orange-600 transition-all duration-300 flex items-center mx-auto shadow-lg hover:shadow-xl">
-                  <FiShoppingCart className="mr-3 w-5 h-5" />
+                <Link
+                  to="/all-clothes"
+                  className="px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold shadow hover:shadow-md transition active:scale-95 inline-flex items-center"
+                >
+                  <FiShoppingCart className="mr-2 w-4 h-4" />
                   Start Shopping
-                </button>
+                </Link>
               </div>
             )}
           </>
         )}
 
         {/* Review Modal */}
-        <div className={`modal ${reviewModal ? "modal-open" : ""}`}>
-          <div className="modal-box relative max-w-lg w-full bg-white shadow-2xl">
+        <div
+          className={`modal ${reviewModal ? "modal-open" : ""} backdrop-blur-sm`}
+        >
+          <div className="modal-box relative max-w-lg w-full bg-white shadow-2xl p-0 overflow-hidden">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-green-600 to-orange-500 text-white p-5 rounded-t-2xl -m-5 mb-5">
+            <div className="bg-linear-to-r from-green-600 to-green-700 text-white p-3 sm:p-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <FiStar className="w-5 h-5 text-yellow-300" />
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center shrink-0">
+                    <FiStar className="w-4 h-4 text-yellow-300 fill-yellow-300" />
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold">Write a Review</h2>
-                    <p className="text-green-100 text-xs">
-                      Share your experience
-                    </p>
+                  <div className="min-w-0">
+                    <h2 className="text-sm sm:text-base font-bold truncate">
+                      Write a Review
+                    </h2>
                   </div>
                 </div>
                 <button
                   onClick={handleCloseModal}
-                  className="btn btn-xs btn-circle btn-ghost text-white hover:bg-white/20 border-white/20"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                 >
                   <FiX className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Order Info Card */}
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-3 mb-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-blue-600 font-medium mb-1">
-                    Order Details
+            {/* Modal Body */}
+            <div className="p-4 sm:p-5 space-y-4 overflow-x-hidden">
+              <div className="bg-gray-50 rounded-lg p-2.5 sm:p-3 border border-gray-100 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-gray-900 truncate">
+                    Order #{selectedOrder?._id?.slice(-8)}
                   </p>
-                  <p className="text-base font-bold text-gray-900">
-                    #{selectedOrder?._id?.slice(-8)}
-                  </p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-[10px] text-gray-500 font-medium">
                     {selectedOrder?.products?.length || 0} items • ৳
                     {selectedOrder?.totalAmount}
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <FiPackage className="w-6 h-6 text-blue-600" />
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                  <FiPackage className="w-4 h-4 text-green-600" />
                 </div>
               </div>
-            </div>
 
-            {/* Modal Body */}
-            <div className="space-y-4">
-              {/* Product Selection */}
-              {selectedOrder?.products?.length > 1 && (
+              <div className="space-y-4">
+                {/* Product Selection */}
+                {selectedOrder?.products?.length > 1 && (
+                  <div className="form-control">
+                    <label className="label pt-0 px-1">
+                      <span className="label-text font-bold text-gray-500 flex items-center text-[10px] sm:text-xs uppercase tracking-wider">
+                        <FiShoppingCart className="w-3 h-3 mr-2" />
+                        Select Product
+                      </span>
+                    </label>
+                    <select
+                      value={reviewData.productId}
+                      onChange={(e) =>
+                        setReviewData({
+                          ...reviewData,
+                          productId: e.target.value,
+                        })
+                      }
+                      className="select select-bordered w-full h-9 min-h-0 text-xs border-2 focus:border-green-500 rounded-lg bg-gray-50/50"
+                    >
+                      {selectedOrder.products.map((product, index) => (
+                        <option
+                          key={product._id || index}
+                          value={product._id || index}
+                        >
+                          {product.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* Star Rating */}
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium text-gray-700 flex items-center text-sm">
-                      <FiShoppingCart className="w-3 h-3 mr-2 text-green-600" />
-                      Select Product to Review
+                  <label className="label px-1">
+                    <span className="label-text font-bold text-gray-500 flex items-center text-[10px] sm:text-xs uppercase tracking-wider">
+                      <FiStar className="w-3 h-3 mr-2" />
+                      Your Rating
                     </span>
                   </label>
-                  <select
-                    value={reviewData.productId}
+                  <div className="cursor-pointer bg-gray-50/50 rounded-xl p-3 sm:p-4 border-2 border-gray-100 hover:border-yellow-200 transition-all duration-300 text-center">
+                    <StarRating
+                      rating={reviewData.rating}
+                      onRatingChange={(rating) =>
+                        setReviewData({ ...reviewData, rating })
+                      }
+                    />
+                    <p className="text-[10px] sm:text-xs mt-2 text-gray-500">
+                      {reviewData.rating === 0
+                        ? "Select stars"
+                        : `${reviewData.rating} star${reviewData.rating > 1 ? "s" : ""} - Selected`}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Review Comment */}
+                <div className="form-control">
+                  <label className="label px-1">
+                    <span className="label-text font-bold text-gray-500 flex items-center text-[10px] sm:text-xs uppercase tracking-wider">
+                      <FiSend className="w-3 h-3 mr-2" />
+                      Your Review
+                    </span>
+                  </label>
+                  <textarea
+                    value={reviewData.comment}
                     onChange={(e) =>
-                      setReviewData({
-                        ...reviewData,
-                        productId: e.target.value,
-                      })
+                      setReviewData({ ...reviewData, comment: e.target.value })
                     }
-                    className="select select-bordered select-sm border-2 focus:border-green-500"
-                  >
-                    {selectedOrder.products.map((product, index) => (
-                      <option
-                        key={product._id || index}
-                        value={product._id || index}
-                      >
-                        {product.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              {/* Star Rating */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium text-gray-700 flex items-center text-sm">
-                    <FiStar className="w-3 h-3 mr-2 text-yellow-500" />
-                    Your Rating
-                  </span>
-                </label>
-                <div className="cursor-pointer bg-gray-50 rounded-lg p-4 border-2 border-gray-200 hover:border-yellow-300 transition-colors">
-                  <StarRating
-                    rating={reviewData.rating}
-                    onRatingChange={(rating) =>
-                      setReviewData({ ...reviewData, rating })
-                    }
+                    placeholder="Tell us about your experience..."
+                    className="textarea textarea-bordered h-20 sm:h-24 resize-none border-2 border-gray-100 focus:border-green-500 rounded-xl text-xs leading-relaxed p-3 bg-gray-50/50"
+                    maxLength={500}
                   />
-                  <p className="text-xs text-center mt-3 text-gray-600">
-                    {reviewData.rating === 0
-                      ? "Click on stars to rate"
-                      : `${reviewData.rating} star${reviewData.rating > 1 ? "s" : ""} - Great choice!`}
-                  </p>
-                </div>
-              </div>
-
-              {/* Review Comment */}
-              <div className="form-control">
-                <label className="label m-2">
-                  <span className="label-text font-medium text-gray-700 flex items-center text-sm">
-                    <FiSend className="w-3 h-3 mr-2 text-blue-600" />
-                    Your Review
-                  </span>
-                </label>
-                <textarea
-                  value={reviewData.comment}
-                  onChange={(e) =>
-                    setReviewData({ ...reviewData, comment: e.target.value })
-                  }
-                  placeholder="Tell us about your experience with this product... What did you like? What could be better?"
-                  className="textarea textarea-bordered textarea-sm h-24 resize-none border-2 border-green-500 text-gray-700"
-                  maxLength={500}
-                />
-                <label className="label">
-                  <span className="label-text-alt text-gray-500 flex items-center justify-between text-xs">
-                    <span>💡 Be specific and helpful</span>
-                    <span className="font-medium">
+                  <div className="flex items-center justify-between mt-2 px-1">
+                    <span className="text-xs text-gray-500 flex items-center justify-between">
+                      💡 Be specific and helpful
+                    </span>
+                    <span className="text-xs font-medium text-gray-500">
                       {reviewData.comment.length}/500
                     </span>
-                  </span>
-                </label>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="modal-action bg-gray-50 -mx-5 -mb-5 p-4 rounded-b-2xl">
-              <div className="flex space-x-2">
-                <button
-                  onClick={handleCloseModal}
-                  className="btn btn-outline btn-primary btn-sm flex-1"
-                >
-                  <FiX className="w-3 h-3 mr-1" />
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSubmitReview}
-                  disabled={
-                    submittingReview ||
-                    !reviewData.rating ||
-                    !reviewData.comment.trim()
-                  }
-                  className="btn btn-primary btn-sm flex-1 bg-gradient-to-r from-green-600 to-orange-500 border-0 hover:from-green-700 hover:to-orange-600 cursor-pointer text-white"
-                >
-                  {submittingReview ? (
-                    <>
-                      <span className="loading loading-spinner loading-xs mr-1"></span>
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      <FiSend className="w-3 h-3 mr-1" />
-                      Submit Review
-                    </>
-                  )}
-                </button>
-              </div>
+            <div className="p-3 sm:p-4 bg-gray-50/80 border-t border-gray-100 flex flex-col sm:flex-row gap-2">
+              <button
+                onClick={handleCloseModal}
+                className="order-2 sm:order-1 flex-1 py-2 text-xs font-bold text-gray-500 hover:text-gray-700 rounded-lg transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitReview}
+                disabled={
+                  submittingReview ||
+                  !reviewData.rating ||
+                  !reviewData.comment.trim()
+                }
+                className="order-1 sm:order-2 flex-2 py-2 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-all text-xs flex items-center justify-center gap-2"
+              >
+                {submittingReview ? (
+                  <>
+                    <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <FiSend className="w-3.5 h-3.5" />
+                    Submit Review
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>

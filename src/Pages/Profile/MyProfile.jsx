@@ -1,5 +1,16 @@
 import React, { useState } from "react";
 import useAxios from "../../Hook/useAxios";
+import {
+  FiUser,
+  FiMail,
+  FiMapPin,
+  FiPhone,
+  FiEdit3,
+  FiCheck,
+  FiX,
+  FiInfo,
+  FiMap,
+} from "react-icons/fi";
 
 const MyProfile = ({ data }) => {
   const [isEditingAddress, setIsEditingAddress] = useState(false);
@@ -26,164 +37,225 @@ const MyProfile = ({ data }) => {
   };
 
   return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Profile</h1>
-        <p className="text-gray-600">
-          Manage your personal information and address
-        </p>
-      </div>
-
-      {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Personal Details Section */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
-                Personal Details
-              </h2>
+    <div className="min-h-screen bg-gray-50/50 py-4 sm:py-8 lg:py-12 overflow-x-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex w-12 h-12 bg-green-100 rounded-2xl items-center justify-center text-green-600 shadow-sm border border-green-50">
+              <FiUser className="w-6 h-6" />
             </div>
-          </div>
-
-          <div className="p-6">
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Name</p>
-                <p className="font-medium text-gray-900">{personalData.name}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Email</p>
-                <p className="font-medium text-gray-900">
-                  {personalData.email}
-                </p>
-              </div>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+                My Profile
+              </h1>
+              <p className="text-sm sm:text-base text-gray-500 font-medium">
+                Manage your personal information and address
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Address Section */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
-                Delivery Address
-              </h2>
-              {!isEditingAddress ? (
-                <button
-                  onClick={() => setIsEditingAddress(true)}
-                  className="flex items-center space-x-2 px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                    />
-                  </svg>
-                  <span className="font-medium">{addressData.address || addressData.phone ? "Edit" : "Add"}</span>
-                </button>
-              ) : (
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setIsEditingAddress(false)}
-                    className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleAddressSubmit}
-                    className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Save</span>
-                  </button>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* Sidebar / Profile Card */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative group">
+              {/* Header Gradient */}
+              <div className="absolute top-0 left-0 right-0 h-24 bg-linear-to-br from-green-500 to-green-600"></div>
+
+              <div className="relative pt-12 pb-8 px-6 flex flex-col items-center">
+                {/* Avatar */}
+                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-white rounded-full p-1.5 shadow-xl mb-4 relative z-10 group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-linear-to-br from-gray-50 to-gray-100 rounded-full flex items-center justify-center text-green-600 border border-gray-100">
+                    <span className="text-4xl font-black uppercase tracking-tighter">
+                      {personalData.name?.charAt(0) || "U"}
+                    </span>
+                  </div>
                 </div>
-              )}
+
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  {personalData.name}
+                </h3>
+                <p className="text-sm text-gray-500 font-medium mb-6 uppercase tracking-widest">
+                  {data?.role || "Customer"}
+                </p>
+
+                <div className="w-full space-y-3 pt-6 border-t border-gray-50">
+                  <div className="flex items-center gap-3 p-3 bg-gray-50/50 rounded-xl">
+                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-gray-400 shadow-sm">
+                      <FiMail className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
+                        Email Address
+                      </p>
+                      <p className="text-sm font-semibold text-gray-700 truncate">
+                        {personalData.email}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
 
-          <div className="p-6">
-            {isEditingAddress ? (
-              <form onSubmit={handleAddressSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+          {/* Main Content Area */}
+          <div className="lg:col-span-8 space-y-6">
+            {/* Delivery Address Card */}
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="px-6 py-5 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center text-green-600 shadow-sm">
+                    <FiMapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <h2 className="text-lg font-bold text-gray-900">
                     Delivery Address
-                  </label>
-                  <textarea
-                    value={addressData.address}
-                    name="address"
-                    onChange={(e) =>
-                      setAddressData({
-                        ...addressData,
-                        address: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
-                    rows="3"
-                  />
+                  </h2>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    value={addressData.phone}
-                    name="phone"
-                    onChange={(e) =>
-                      setAddressData({ ...addressData, phone: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
-                </div>
-              </form>
-            ) : (
-              <div className="space-y-4">
-                {addressData.address || addressData.phone ? (
-                  <>
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">
-                        Delivery Address
-                      </p>
-                      <p className="font-medium text-gray-900">
-                        {addressData.address || "No address provided"}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">Phone Number</p>
-                      <p className="font-medium text-gray-900">
-                        {addressData.phone || "No phone provided"}
-                      </p>
-                    </div>
-                  </>
+
+                {!isEditingAddress ? (
+                  <button
+                    onClick={() => setIsEditingAddress(true)}
+                    className="flex items-center gap-2 px-4 py-2 bg-white text-green-600 border border-green-100 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all font-bold text-sm shadow-sm active:scale-95"
+                  >
+                    <FiEdit3 className="w-4 h-4" />
+                    <span className="hidden sm:inline">
+                      {addressData.address || addressData.phone
+                        ? "Edit"
+                        : "Add"}
+                    </span>
+                    <span className="sm:hidden">
+                      {addressData.address || addressData.phone
+                        ? "Edit"
+                        : "Add"}
+                    </span>
+                  </button>
                 ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500 text-lg">
-                      Please add your delivery address
-                    </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setIsEditingAddress(false)}
+                      className="px-4 py-2 text-gray-500 hover:text-gray-700 font-bold text-sm transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleAddressSubmit}
+                      className="flex items-center gap-2 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-all font-bold text-sm shadow-lg shadow-green-100 active:scale-95"
+                    >
+                      <FiCheck className="w-4 h-4" />
+                      Save
+                    </button>
                   </div>
                 )}
               </div>
-            )}
+
+              <div className="p-6 sm:p-8">
+                {isEditingAddress ? (
+                  <form
+                    onSubmit={handleAddressSubmit}
+                    className="space-y-6 max-w-2xl"
+                  >
+                    <div className="group">
+                      <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2 px-1 group-focus-within:text-green-600 transition-colors">
+                        Full Delivery Address
+                      </label>
+                      <div className="relative">
+                        <textarea
+                          value={addressData.address}
+                          name="address"
+                          onChange={(e) =>
+                            setAddressData({
+                              ...addressData,
+                              address: e.target.value,
+                            })
+                          }
+                          placeholder="House, Road, Area, City..."
+                          className="w-full px-5 py-4 bg-gray-50 border-2 border-gray-50 rounded-2xl focus:bg-white focus:border-green-500 outline-none transition-all resize-none text-sm leading-relaxed"
+                          rows="4"
+                        />
+                      </div>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2 px-1 group-focus-within:text-green-600 transition-colors">
+                        Primary Contact Number
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="tel"
+                          value={addressData.phone}
+                          name="phone"
+                          onChange={(e) =>
+                            setAddressData({
+                              ...addressData,
+                              phone: e.target.value,
+                            })
+                          }
+                          placeholder="+880 1XXX-XXXXXX"
+                          className="w-full px-5 py-3.5 bg-gray-50 border-2 border-gray-50 rounded-2xl focus:bg-white focus:border-green-500 outline-none transition-all text-sm font-medium"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
+                          <FiPhone className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {addressData.address || addressData.phone ? (
+                      <>
+                        <div className="bg-gray-50/50 p-6 rounded-3xl border border-gray-50 hover:border-green-100 transition-colors group">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-green-500 shadow-sm border border-gray-50">
+                              <FiMap className="w-4 h-4" />
+                            </div>
+                            <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">
+                              Your Address
+                            </h4>
+                          </div>
+                          <p className="text-gray-900 font-bold leading-relaxed">
+                            {addressData.address || "No address provided"}
+                          </p>
+                        </div>
+
+                        <div className="bg-gray-50/50 p-6 rounded-3xl border border-gray-50 hover:border-green-100 transition-colors group">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-blue-500 shadow-sm border border-gray-50">
+                              <FiPhone className="w-4 h-4" />
+                            </div>
+                            <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">
+                              Mobile Number
+                            </h4>
+                          </div>
+                          <p className="text-gray-900 font-black text-lg tracking-tight">
+                            {addressData.phone || "No phone provided"}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="col-span-full py-12 flex flex-col items-center justify-center text-center">
+                        <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6 border-2 border-dashed border-green-200">
+                          <FiMapPin className="w-8 h-8 text-green-300" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">
+                          Ready to ship?
+                        </h3>
+                        <p className="text-sm text-gray-500 max-w-xs mx-auto mb-8 font-medium">
+                          Please add your delivery address for a faster and
+                          smoother checkout experience.
+                        </p>
+                        <button
+                          onClick={() => setIsEditingAddress(true)}
+                          className="px-8 py-3 bg-green-600 text-white rounded-2xl font-black text-sm hover:translate-y-[-2px] transition-all shadow-lg shadow-green-100 active:scale-95"
+                        >
+                          Add Address Now
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

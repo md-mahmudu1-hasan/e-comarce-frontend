@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { FaRegStar } from "react-icons/fa";
+import { Link } from "react-router";
 
 const MyReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -215,9 +216,9 @@ const MyReviews = () => {
               <p className="text-gray-500 mb-6">
                 You haven't written any product reviews yet.
               </p>
-              <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+              <Link to="/all-clothes" className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                 Browse Products
-              </button>
+              </Link>
             </div>
           )}
 
