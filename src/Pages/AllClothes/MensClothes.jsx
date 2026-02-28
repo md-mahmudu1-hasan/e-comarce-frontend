@@ -226,7 +226,7 @@ const MensClothesDetails = () => {
               <div className="space-y-4">
                 <div className="flex items-baseline gap-4">
                   <div className="text-4xl font-bold text-green-700">
-                    ₹{clothesdetails.after_discount_price}
+                    ৳{clothesdetails.after_discount_price}
                   </div>
                   <div
                     className={`px-3 py-1 rounded-full text-sm font-medium ${

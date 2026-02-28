@@ -44,10 +44,10 @@ const ProductCard = ({ product, name }) => {
           <div className="space-y-2 pt-2 border-t border-gray-100">
             <div className="flex items-baseline gap-2">
               <span className="text-lg lg:text-xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent">
-                ₹{product.after_discount_price}
+                ৳{product.after_discount_price}
               </span>
               <span className="text-sm lg:text-base text-gray-400 line-through">
-                ₹{product.main_price}
+                ৳{product.main_price}
               </span>
             </div>
             <div className="flex items-center gap-2">

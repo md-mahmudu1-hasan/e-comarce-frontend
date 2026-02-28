@@ -217,7 +217,7 @@ const BestClothesDetails = () => {
               <div className="space-y-4">
                 <div className="flex items-baseline gap-4">
                   <div className="text-4xl font-bold text-green-700">
-                    ₹{clothesdetails.after_discount_price}
+                    ৳{clothesdetails.after_discount_price}
                   </div>
                   <div
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -283,7 +283,6 @@ const BestClothesDetails = () => {
                     )}
                   </select>
                 </div>
-                {user ? (
                   <button
                     onClick={() => {
                       if (quantity > clothesdetails.stock) {
@@ -303,24 +302,7 @@ const BestClothesDetails = () => {
                   >
                     {clothesdetails.stock > 0 ? "Add to Cart" : "Out of Stock"}
                   </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      navigate("/login");
-                      toast.error("Please login for add to cart");
-                    }}
-                    disabled={clothesdetails.stock === 0}
-                    className={`flex-1 sm:flex-none px-8 py-3 rounded-lg font-semibold transition-all ${
-                      clothesdetails.stock > 0
-                        ? "bg-green-700 hover:bg-green-800 text-white hover:-translate-y-1 shadow-lg"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
-                  >
-                    {clothesdetails.stock > 0 ? "Add to Cart" : "Out of Stock"}
-                  </button>
-                )}
               </div>
-
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Key Features

@@ -23,20 +23,29 @@ const Cart = () => {
   const { user } = useAuth();
   const axiosInstance = useAxios();
   const navigate = useNavigate();
-
   useEffect(() => {
-    if (user?.email) {
-      setLoading(true);
-      axiosInstance
-        .get(`/userInfo/by-email/${user?.email}`)
-        .then((res) => {
-          setUserAddress(res?.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    }
+    const fetchAddress = async () => {
+      try {
+        setLoading(true);
+
+        if (user?.email) {
+          const res = await axiosInstance.get(
+            `/userInfo/by-email/${user.email}`,
+          );
+          setUserAddress(res?.data || {});
+        } else {
+          // guest user হলে empty address set
+          setUserAddress(null);
+        }
+      } catch (error) {
+        console.error(error);
+        setUserAddress(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAddress();
   }, [user]);
 
   const OrderSubmit = async () => {
@@ -45,12 +54,12 @@ const Cart = () => {
     }
 
     const orderData = {
-      userEmail: user.email,
-      userName: userAddress.name,
+      userEmail: user?.email,
+      userName: userAddress?.name,
       cart,
       total: getSubtotal(),
-      address: userAddress.address,
-      phone: userAddress.phone,
+      address: userAddress?.address,
+      phone: userAddress?.phone,
     };
 
     try {
@@ -152,10 +161,10 @@ const Cart = () => {
                     </h3>
                     <div className="flex items-center space-x-3 mb-3">
                       <span className="text-2xl font-bold text-green-600">
-                        ₹{item.after_discount_price}
+                        ৳{item.after_discount_price}
                       </span>
                       <span className="text-lg text-gray-400 line-through">
-                        ₹{item.main_price}
+                        ৳{item.main_price}
                       </span>
                       <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs font-semibold">
                         {item.discount}% OFF
@@ -222,9 +231,9 @@ const Cart = () => {
                 </div>
                 {userAddress ? (
                   <p className="text-sm text-gray-600">
-                    {userAddress.address}
+                    {userAddress?.address}
                     <br />
-                    Phone: {userAddress.phone}
+                    Phone: {userAddress?.phone}
                   </p>
                 ) : (
                   <p className="text-sm text-orange-600 font-medium">
@@ -239,11 +248,11 @@ const Cart = () => {
                     Subtotal ({cart.length}
                     items)
                   </span>
-                  <span>₹{getSubtotal().toFixed(2)}</span>
+                  <span>৳{getSubtotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-green-600">
                   <span>Discount</span>
-                  <span>-₹{getDiscountAmount().toFixed(2)}</span>
+                  <span>-৳{getDiscountAmount().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Delivery Fee</span>
@@ -255,7 +264,7 @@ const Cart = () => {
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg font-bold text-gray-900">
                     <span>Total</span>
-                    <span>₹{getSubtotal().toFixed(2)}</span>
+                    <span>৳{getSubtotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -278,7 +287,7 @@ const Cart = () => {
               <div className="space-y-3">
                 <button
                   onClick={OrderSubmit}
-                  disabled={orderLoading}
+                  disabled={orderLoading || !user}
                   className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-600 disabled:hover:to-orange-600 flex items-center justify-center space-x-2"
                 >
                   {orderLoading ? (
@@ -306,7 +315,7 @@ const Cart = () => {
                       <span>Processing...</span>
                     </>
                   ) : (
-                    <span>Confirm Order</span>
+                    <span>{user ? "Confirm Order" : "Add Your Adress to Confirm Order"}</span>
                   )}
                 </button>
                 <Link

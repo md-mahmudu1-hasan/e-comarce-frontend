@@ -195,7 +195,7 @@ const AboutUs = () => {
           </section>
 
           {/* Outlet Information */}
-          <section>
+          {/* <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
               <FiMapPin className="mr-3 h-6 w-6 text-green-600" />
               আমাদের আউটলেট
@@ -213,14 +213,14 @@ const AboutUs = () => {
                 <p><strong>গুগল ম্যাপ লোকেশন:</strong> SM সহজ Buy Rafi Taders পাঁচমাথা মোড়, নীলফামারী সদর</p>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Team Information */}
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+            {/* <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
               <FiUsers className="mr-3 h-6 w-6 text-green-600" />
               আমাদের অনলাইন এবং অফলাইন সেবা টিম
-            </h2>
+            </h2> */}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-gray-50 rounded-lg p-6">
@@ -232,7 +232,7 @@ const AboutUs = () => {
                   <p className="text-sm">প্রতিটি অর্ডার নির্ভুলভাবে প্রসেস করা এবং দ্রুততম সময়ে গ্রাহকের হাতে পণ্য পৌঁছে দেওয়া নিশ্চিত করাই আমার কাজ।</p>
                 </div>
               </div>
-
+{/* 
               <div className="bg-gray-50 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">অফলাইন সেবাই নিয়োজিত</h3>
                 <div className="space-y-2 text-gray-700">
@@ -240,7 +240,7 @@ const AboutUs = () => {
                   <p><strong>পদবী:</strong> প্রতিষ্ঠাতা</p>
                   <p><strong>মোবাইল:</strong> 01731965985</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </section>
 
