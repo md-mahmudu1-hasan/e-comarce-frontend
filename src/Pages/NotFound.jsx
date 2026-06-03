@@ -6,13 +6,13 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-orange-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 via-green-50 to-orange-50 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center">
         {/* 404 Animation Container */}
         <div className="relative mb-12">
           {/* Large 404 Text */}
           <div className="relative z-10">
-            <h1 className="text-9xl font-bold bg-gradient-to-r from-green-600 to-orange-600 bg-clip-text text-transparent animate-pulse">
+            <h1 className="text-9xl font-bold bg-linear-to-r from-green-600 to-orange-600 bg-clip-text text-transparent animate-pulse">
               404
             </h1>
           </div>
@@ -48,7 +48,7 @@ const NotFound = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-xl hover:from-green-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="flex items-center space-x-2 px-6 py-3 bg-linear-to-r from-green-600 to-orange-600 text-white rounded-xl hover:from-green-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <AiOutlineHome size={20} />
             <span className="font-medium">Go Home</span>
@@ -73,7 +73,7 @@ const NotFound = () => {
           </button>
         </div>
         {/* Fun Message */}
-        <div className="mt-12 p-6 bg-gradient-to-r from-green-100 to-orange-100 rounded-xl border border-green-200">
+        <div className="mt-12 p-6 bg-linear-to-r from-green-100 to-orange-100 rounded-xl border border-green-200">
           <p className="text-gray-700 font-medium">
             🛍️ While you're here, check out our amazing deals! Your perfect product might be just a click away.
           </p>

@@ -109,7 +109,7 @@ const KidsClothesDetails = () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [id]);
+  }, [axiosInstance, id]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -130,7 +130,7 @@ const KidsClothesDetails = () => {
     if (id) {
       fetchReviews();
     }
-  }, [id]);
+  }, [axiosInstance, id]);
 
   if (loading) {
     return <Loader />;
@@ -438,7 +438,7 @@ const KidsClothesDetails = () => {
               ) : (
                 <div className="text-center py-16">
                   <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
                     <span className="text-6xl text-gray-400 relative z-10">
                       <FaRegStar />
                     </span>
@@ -459,7 +459,7 @@ const KidsClothesDetails = () => {
                         toast.success("Please login for add review");
                       }
                     }}
-                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                    className="px-8 py-3 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                   >
                     <span className="flex items-center gap-2">
                       Write a Review

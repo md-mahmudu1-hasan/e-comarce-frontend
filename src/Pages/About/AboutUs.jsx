@@ -28,7 +28,7 @@ const AboutUs = () => {
         <div className="mb-8">
           <Link
             to="/"
-            className="inline-flex items-center mb-6 transition bg-gradient-to-r from-green-600 to-orange-500 text-white rounded-lg p-2"
+            className="inline-flex items-center mb-6 transition bg-linear-to-r from-green-600 to-orange-500 text-white rounded-lg p-2"
           >
             <FiArrowLeft className="mr-2 h-4 w-4" />
             Back to Home

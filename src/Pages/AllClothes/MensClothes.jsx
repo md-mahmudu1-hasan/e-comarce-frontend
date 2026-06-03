@@ -369,13 +369,13 @@ const MensClothesDetails = () => {
                   {reviews.map((review, index) => (
                     <div
                       key={review._id}
-                      className="border border-gray-100 rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-white to-gray-50/50 hover:shadow-xl transition-all duration-300 hover:border-green-200 relative overflow-hidden group"
+                      className="border border-gray-100 rounded-2xl p-4 sm:p-6 bg-linear-to-br from-white to-gray-50/50 hover:shadow-xl transition-all duration-300 hover:border-green-200 relative overflow-hidden group"
                     >
                       {/* Review Header */}
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-md text-sm sm:text-base">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-md text-sm sm:text-base">
                               {review.userName?.charAt(0)?.toUpperCase() || "U"}
                             </div>
                             <div>
@@ -439,7 +439,7 @@ const MensClothesDetails = () => {
               ) : (
                 <div className="text-center py-16">
                   <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-green-100 to-blue-100 rounded-full animate-pulse"></div>
                     <span className="text-6xl text-gray-400 relative z-10">
                       <FaRegStar />
                     </span>
@@ -460,7 +460,7 @@ const MensClothesDetails = () => {
                         toast.error("Please login for add review");
                       }
                     }}
-                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                    className="px-8 py-3 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                   >
                     <span className="flex items-center gap-2">
                       Write a Review

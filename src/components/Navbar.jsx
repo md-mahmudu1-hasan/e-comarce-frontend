@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 bg-gradient-to-r from-orange-500/30 to-green-600 shadow-lg z-50">
+    <nav className="sticky top-0 bg-linear-to-r from-orange-500/30 to-green-600 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -55,7 +55,7 @@ const Navbar = () => {
                   onChange={(e) => handleSearch(e.target.value)}
                   className="flex-1 px-4 py-3 bg-transparent outline-none text-gray-700 placeholder-gray-500"
                 />
-                <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
+                <button className="px-6 py-3 bg-linear-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
                   Search
                 </button>
               </div>
@@ -149,7 +149,7 @@ const Navbar = () => {
               onChange={(e) => handleSearch(e.target.value)}
               className="flex-1 px-4 py-2 bg-transparent focus:outline-none text-gray-800"
             />
-            <button className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all">
+            <button className="px-4 py-2 bg-linear-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all">
               Search
             </button>
           </div>

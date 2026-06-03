@@ -7,7 +7,7 @@ const ProductCardSkeleton = () => {
       <div className="absolute top-3 right-3 z-10 bg-gray-200 w-12 h-6 rounded-full"></div>
       
       {/* Product Image Skeleton */}
-      <div className="w-full h-40 bg-gradient-to-br from-gray-100 to-gray-200"></div>
+      <div className="w-full h-40 bg-linear-to-br from-gray-100 to-gray-200"></div>
       
       {/* Product Info Skeleton */}
       <div className="flex-1 flex flex-col justify-between p-4">

@@ -227,7 +227,7 @@ const MyReviews = () => {
             <div className="modal modal-open">
               <div className="modal-box relative max-w-lg w-full bg-white shadow-2xl">
                 {/* Modal Header */}
-                <div className="bg-gradient-to-r from-green-600 to-orange-500 text-white p-5 rounded-t-2xl -m-5 mb-5">
+                <div className="bg-linear-to-r from-green-600 to-orange-500 text-white p-5 rounded-t-2xl -m-5 mb-5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -317,7 +317,7 @@ const MyReviews = () => {
                     <button
                       onClick={handleUpdateReview}
                       disabled={!editData.rating || !editData.comment.trim()}
-                      className="btn btn-primary btn-sm flex-1 bg-gradient-to-r from-green-600 to-orange-500 border-0 hover:from-green-700 hover:to-orange-600"
+                      className="btn btn-primary btn-sm flex-1 bg-linear-to-r from-green-600 to-orange-500 border-0 hover:from-green-700 hover:to-orange-600"
                     >
                       Update Review
                     </button>

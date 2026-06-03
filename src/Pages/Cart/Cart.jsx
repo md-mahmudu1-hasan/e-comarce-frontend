@@ -277,7 +277,7 @@ const Cart = () => {
                     placeholder="Enter promo code"
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
-                  <button className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
+                  <button className="px-6 py-3 bg-linear-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all">
                     Apply
                   </button>
                 </div>
@@ -288,7 +288,7 @@ const Cart = () => {
                 <button
                   onClick={OrderSubmit}
                   disabled={orderLoading || !user}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-600 disabled:hover:to-orange-600 flex items-center justify-center space-x-2"
+                  className="w-full px-6 py-3 bg-linear-to-r from-green-600 to-orange-600 text-white rounded-lg hover:from-green-700 hover:to-orange-700 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-600 disabled:hover:to-orange-600 flex items-center justify-center space-x-2"
                 >
                   {orderLoading ? (
                     <>

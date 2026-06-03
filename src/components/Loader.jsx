@@ -40,12 +40,12 @@ const Loader = ({ size = "medium", text = "Loading..." }) => {
           <div className="relative z-10 flex flex-col items-center">
             {/* Glow effect */}
             <div
-              className={`absolute inset-0 ${sizeClasses[size]} bg-gradient-to-r from-green-600 to-orange-600 rounded-xl blur-xl opacity-50 animate-pulse`}
+              className={`absolute inset-0 ${sizeClasses[size]} bg-linear-to-r from-green-600 to-orange-600 rounded-xl blur-xl opacity-50 animate-pulse`}
             ></div>
 
             {/* Shopping bag container */}
             <div
-              className={`${sizeClasses[size]} bg-gradient-to-r from-green-600 to-orange-600 rounded-xl flex items-center justify-center shadow-2xl relative overflow-hidden`}
+              className={`${sizeClasses[size]} bg-linear-to-r from-green-600 to-orange-600 rounded-xl flex items-center justify-center shadow-2xl relative overflow-hidden`}
             >
               {/* Shopping bag icon */}
               <svg
@@ -58,7 +58,7 @@ const Loader = ({ size = "medium", text = "Loading..." }) => {
               </svg>
 
               {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
             </div>
 
             {/* Floating price tags */}
@@ -128,14 +128,14 @@ const Loader = ({ size = "medium", text = "Loading..." }) => {
         <div className="flex justify-center space-x-3 mt-4">
           <div className="relative">
             <div
-              className="w-3 h-3 bg-gradient-to-r from-green-600 to-green-500 rounded-full animate-bounce shadow-lg"
+              className="w-3 h-3 bg-linear-to-r from-green-600 to-green-500 rounded-full animate-bounce shadow-lg"
               style={{ animationDelay: "0ms" }}
             ></div>
             <div className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
           </div>
           <div className="relative">
             <div
-              className="w-3 h-3 bg-gradient-to-r from-orange-600 to-orange-500 rounded-full animate-bounce shadow-lg"
+              className="w-3 h-3 bg-linear-to-r from-orange-600 to-orange-500 rounded-full animate-bounce shadow-lg"
               style={{ animationDelay: "150ms" }}
             ></div>
             <div
@@ -145,7 +145,7 @@ const Loader = ({ size = "medium", text = "Loading..." }) => {
           </div>
           <div className="relative">
             <div
-              className="w-3 h-3 bg-gradient-to-r from-green-600 to-green-500 rounded-full animate-bounce shadow-lg"
+              className="w-3 h-3 bg-linear-to-r from-green-600 to-green-500 rounded-full animate-bounce shadow-lg"
               style={{ animationDelay: "300ms" }}
             ></div>
             <div
@@ -182,7 +182,7 @@ const Loader = ({ size = "medium", text = "Loading..." }) => {
         {/* Progress indicator */}
         <div className="w-full max-w-xs mx-auto mt-4">
           <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-green-600 to-orange-600 rounded-full animate-progress"></div>
+            <div className="h-full bg-linear-to-r from-green-600 to-orange-600 rounded-full animate-progress"></div>
           </div>
         </div>
       </div>

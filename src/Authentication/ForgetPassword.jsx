@@ -42,11 +42,11 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-orange-50 to-green-50 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-green-50 via-orange-50 to-green-50 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto h-20 w-20 bg-gradient-to-r from-green-600 to-orange-600 rounded-full flex items-center justify-center mb-6">
+          <div className="mx-auto h-20 w-20 bg-linear-to-r from-green-600 to-orange-600 rounded-full flex items-center justify-center mb-6">
             <FiMail className="h-10 w-10 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
@@ -111,7 +111,7 @@ const ForgetPassword = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-green-600 to-orange-600 hover:from-green-700 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-linear-to-r from-green-600 to-orange-600 hover:from-green-700 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {isSubmitting ? (
                   <div className="flex items-center">
@@ -171,7 +171,7 @@ const ForgetPassword = () => {
                 </button>
                 <button
                   onClick={handleBackToLogin}
-                  className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-green-600 to-orange-600 hover:from-green-700 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300"
+                  className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-linear-to-r from-green-600 to-orange-600 hover:from-green-700 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300"
                 >
                   <FiArrowLeft className="mr-2 h-4 w-4" />
                   Back to Login

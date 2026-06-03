@@ -51,7 +51,7 @@ const HeroSlider = () => {
                   className="w-full h-[50vh] md:h-[70vh] object-cover rounded-xl"
                 />
                 
-                {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent rounded-xl">
+                {/* <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-transparent rounded-xl">
                   <div className="absolute inset-0 flex items-center">
                     <div className="px-8 md:px-12 lg:px-16 w-full lg:w-3/4">
                       <div className="mb-4">
@@ -98,7 +98,7 @@ const HeroSlider = () => {
             />
             
             {/* Side Banner Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-green-600/80 to-green-700/80 rounded-xl flex flex-col justify-center items-center text-white p-6">
+            <div className="absolute inset-0 bg-linear-to-b from-green-600/80 to-green-700/80 rounded-xl flex flex-col justify-center items-center text-white p-6">
               <div className="text-center">
                 <span className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
                   Exclusive
