@@ -291,34 +291,17 @@ const WomensClothesDetails = () => {
                     )}
                   </select>
                 </div>
-                {user ? (
-                  <button
-                    onClick={handleAddToCart}
-                    disabled={clothesdetails.stock === 0}
-                    className={`flex-1 sm:flex-none px-8 py-3 rounded-lg font-semibold transition-all ${
-                      clothesdetails.stock > 0
-                        ? "bg-green-700 hover:bg-green-800 text-white hover:-translate-y-1 shadow-lg"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
-                  >
-                    {clothesdetails.stock > 0 ? "Add to Cart" : "Out of Stock"}
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      navigate("/login");
-                      toast.error("Please login for add to cart");
-                    }}
-                    disabled={clothesdetails.stock === 0}
-                    className={`flex-1 sm:flex-none px-8 py-3 rounded-lg font-semibold transition-all ${
-                      clothesdetails.stock > 0
-                        ? "bg-green-700 hover:bg-green-800 text-white hover:-translate-y-1 shadow-lg"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
-                  >
-                    {clothesdetails.stock > 0 ? "Add to Cart" : "Out of Stock"}
-                  </button>
-                )}
+                <button
+                  onClick={handleAddToCart}
+                  disabled={clothesdetails.stock === 0}
+                  className={`flex-1 sm:flex-none px-8 py-3 rounded-lg font-semibold transition-all ${
+                    clothesdetails.stock > 0
+                      ? "bg-green-700 hover:bg-green-800 text-white hover:-translate-y-1 shadow-lg"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
+                >
+                  {clothesdetails.stock > 0 ? "Add to Cart" : "Out of Stock"}
+                </button>
               </div>
 
               <div>

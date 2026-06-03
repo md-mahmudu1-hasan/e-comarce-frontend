@@ -21,20 +21,24 @@ const Profilelayout = () => {
   const navigate = useNavigate();
   const axiosInstance = useAxios();
 
-  useEffect(() => {
-    if (user?.email) {
-      setLoading(true);
-      axiosInstance
-        .get(`/userInfo/by-email/${user?.email}`)
-        .then((res) => {
-          setData(res?.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
+useEffect(() => {
+  if (!user?.email) return;
+
+  const fetchData = async () => {
+    try {
+      const res = await axiosInstance.get(
+        `/userInfo/by-email/${user.email}`
+      );
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-  }, [user]);
+  };
+
+  fetchData();
+}, [user?.email]);
 
   const handleLogout = () => {
     SignOut();
