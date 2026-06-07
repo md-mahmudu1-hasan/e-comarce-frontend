@@ -18,16 +18,16 @@ const HeroSlider = () => {
   };
 
   const slides = [
+    // { 
+    //   src: "/2.jpg.jpeg", 
+    //   title: "Mega Sale Event",
+    //   subtitle: "Up to 70% Off",
+    //   description: "Electronics & Gadgets",
+    //   badge: "LIMITED TIME",
+    //   badgeColor: "orange"
+    // },
     { 
-      src: "/2.jpg.jpeg", 
-      title: "Mega Sale Event",
-      subtitle: "Up to 70% Off",
-      description: "Electronics & Gadgets",
-      badge: "LIMITED TIME",
-      badgeColor: "orange"
-    },
-    { 
-      src: "/1.jpg.jpeg", 
+      src: "/Gemini_Generated_Image_a06q98a06q98a06q.png", 
       title: "New Arrivals",
       subtitle: "Latest Tech",
       description: "Smartphones & Laptops",
